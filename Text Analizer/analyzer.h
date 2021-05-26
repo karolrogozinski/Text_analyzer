@@ -14,7 +14,8 @@ class IParadigm {
 
 public:
 	virtual void find_pattern() = 0;
-	virtual int return_data() = 0;
+	virtual int number_of_words() = 0;
+	virtual std::string patterned_text() = 0;
 };
 
 
@@ -25,7 +26,8 @@ class ParadigmWords : public IParadigm {
 public:
 	ParadigmWords(const std::string& text_) { text = &text_; }
 	void find_pattern();
-	int return_data() { return result; };
+	int number_of_words() { return result; };
+	std::string patterned_text() { return *text; };
 };
 
 
@@ -33,11 +35,13 @@ class ParadigmLongerThan : public IParadigm {
 	int result = 0;
 	const std::string* text;
 	int length;
+	std::string patterned_text_ = "";
 
 public:
 	ParadigmLongerThan(const std::string& text_, int len) { text = &text_; length = len; }
 	void find_pattern();
-	int return_data() { return result; };
+	int number_of_words() { return result; };
+	std::string patterned_text() { return patterned_text_; };
 };
 
 
@@ -45,11 +49,13 @@ class ParadigmShorterThan : public IParadigm {
 	int result = 0;
 	const std::string* text;
 	int length;
+	std::string patterned_text_ = "";
 
 public:
 	ParadigmShorterThan(const std::string& text_, int len) { text = &text_; length = len; }
 	void find_pattern();
-	int return_data() { return result; };
+	int number_of_words() { return result; };
+	std::string patterned_text() { return patterned_text_; };
 };
 
 
@@ -57,9 +63,11 @@ class ParadigmEqualLength : public IParadigm {
 	int result = 0;
 	const std::string* text;
 	int length;
+	std::string patterned_text_ = "";
 
 public:
 	ParadigmEqualLength(const std::string& text_, int len) { text = &text_; length = len; }
 	void find_pattern();
-	int return_data() { return result; };
+	int number_of_words() { return result; };
+	std::string patterned_text() { return patterned_text_; };
 };

@@ -32,7 +32,10 @@ void ParadigmLongerThan::find_pattern() {
     for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
         std::smatch match = *i;
         std::string match_str = match.str();
-        if (match_str.size() > length) result++;
+        if (match_str.size() > length) {
+            patterned_text_ += match_str += " ";
+            result++;
+        };
     };
 };
 
@@ -45,7 +48,10 @@ void ParadigmShorterThan::find_pattern() {
     for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
         std::smatch match = *i;
         std::string match_str = match.str();
-        if (match_str.size() < length) result++;
+        if (match_str.size() < length) {
+            patterned_text_ += match_str += " ";
+            result++;
+        };
     };
 };
 
@@ -58,6 +64,9 @@ void ParadigmEqualLength::find_pattern() {
     for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
         std::smatch match = *i;
         std::string match_str = match.str();
-        if (match_str.size() == length) result++;
+        if (match_str.size() == length) {
+            patterned_text_ += match_str += " ";
+            result++;
+        };
     };
 };
