@@ -15,6 +15,7 @@ std::string read_file(const std::string& file_name) {
 };
 
 
+// Count all the words in text
 void ParadigmWords::find_pattern() {
     std::regex word_regex("(\\w+)");
     auto words_begin =
@@ -24,6 +25,7 @@ void ParadigmWords::find_pattern() {
 };
 
 
+// Find and count words longer than given length
 void ParadigmLongerThan::find_pattern() {
     std::regex word_regex("(\\w+)");
     auto words_begin =
@@ -40,6 +42,7 @@ void ParadigmLongerThan::find_pattern() {
 };
 
 
+// Find and count words shorter than given length
 void ParadigmShorterThan::find_pattern() {
     std::regex word_regex("(\\w+)");
     auto words_begin =
@@ -56,6 +59,7 @@ void ParadigmShorterThan::find_pattern() {
 };
 
 
+// Find and count words equal given length
 void ParadigmEqualLength::find_pattern() {
     std::regex word_regex("(\\w+)");
     auto words_begin =
