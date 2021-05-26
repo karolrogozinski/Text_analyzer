@@ -9,7 +9,7 @@
 int main()
 {
     std::string text = read_file("war_and_peace.txt");
-    ParadigmWords pw(text);
+    ParadigmLongerThan pw(text, -2);
     pw.find_pattern();
     std::cout << pw.return_data();
 }

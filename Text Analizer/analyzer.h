@@ -19,7 +19,7 @@ public:
 
 
 class ParadigmWords : public IParadigm {
-	int result;
+	int result = 0;
 	const std::string* text;
 
 public:
@@ -30,7 +30,36 @@ public:
 
 
 class ParadigmLongerThan : public IParadigm {
-	int result;
+	int result = 0;
 	const std::string* text;
+	int length;
 
+public:
+	ParadigmLongerThan(const std::string& text_, int len) { text = &text_; length = len; }
+	void find_pattern();
+	int return_data() { return result; };
+};
+
+
+class ParadigmShorterThan : public IParadigm {
+	int result = 0;
+	const std::string* text;
+	int length;
+
+public:
+	ParadigmShorterThan(const std::string& text_, int len) { text = &text_; length = len; }
+	void find_pattern();
+	int return_data() { return result; };
+};
+
+
+class ParadigmEqualLength : public IParadigm {
+	int result = 0;
+	const std::string* text;
+	int length;
+
+public:
+	ParadigmEqualLength(const std::string& text_, int len) { text = &text_; length = len; }
+	void find_pattern();
+	int return_data() { return result; };
 };

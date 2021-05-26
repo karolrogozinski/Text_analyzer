@@ -22,3 +22,42 @@ void ParadigmWords::find_pattern() {
     auto words_end = std::sregex_iterator();
     result = std::distance(words_begin, words_end);
 };
+
+
+void ParadigmLongerThan::find_pattern() {
+    std::regex word_regex("(\\w+)");
+    auto words_begin =
+        std::sregex_iterator(text->begin(), text->end(), word_regex);
+    auto words_end = std::sregex_iterator();
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        if (match_str.size() > length) result++;
+    };
+};
+
+
+void ParadigmShorterThan::find_pattern() {
+    std::regex word_regex("(\\w+)");
+    auto words_begin =
+        std::sregex_iterator(text->begin(), text->end(), word_regex);
+    auto words_end = std::sregex_iterator();
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        if (match_str.size() < length) result++;
+    };
+};
+
+
+void ParadigmEqualLength::find_pattern() {
+    std::regex word_regex("(\\w+)");
+    auto words_begin =
+        std::sregex_iterator(text->begin(), text->end(), word_regex);
+    auto words_end = std::sregex_iterator();
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        if (match_str.size() == length) result++;
+    };
+};
