@@ -78,6 +78,10 @@ void ParadigmEqualLength::find_pattern() {
 
 
 void ParadigmStartsWithSequence::find_pattern() {
+    if (seq_.empty()) {
+        return;
+    }
+
     std::string pattern = "\\b(";
     pattern += seq_;
     pattern += ")([^ ]*)";
@@ -95,6 +99,10 @@ void ParadigmStartsWithSequence::find_pattern() {
 
 
 void ParadigmEndsOnSequence::find_pattern() {
+    if (seq_.empty()) {
+        return;
+    }
+
     std::string pattern = "([^ ]*)(";
     pattern += seq_;
     pattern += ")([ ])";
@@ -110,7 +118,7 @@ void ParadigmEndsOnSequence::find_pattern() {
     };
 };
 
-int ParadigmIntersection(std::string text, std::vector< std::pair<char, char> > paradigms) {
+int ParadigmIntersection(std::string text, std::vector< std::pair<char, std::string> > paradigms) {
     std::string to_modify = text;
 
     for (auto a : paradigms) {
@@ -119,17 +127,25 @@ int ParadigmIntersection(std::string text, std::vector< std::pair<char, char> > 
 
         switch (number) {
         case 1: {
-            ParadigmLongerThan p1(to_modify, a.second);
+            ParadigmLongerThan p1(to_modify, std::stoi(a.second));
             to_modify = p1.patterned_text();
             break; }
         case 2: {
-            ParadigmShorterThan p2(to_modify, a.second);
+            ParadigmShorterThan p2(to_modify, std::stoi(a.second));
             to_modify = p2.patterned_text();
             break; }
         case 3: {
-            ParadigmEqualLength p3(to_modify, a.second);
+            ParadigmEqualLength p3(to_modify, std::stoi(a.second));
             to_modify = p3.patterned_text();
             break; }
+        case 4: {
+            ParadigmStartsWithSequence p4(to_modify, a.second);
+            to_modify = p4.patterned_text();
+            break; }
+        case 5: {
+            ParadigmEndsOnSequence p5(to_modify, a.second);
+            to_modify = p5.patterned_text();
+            break;}
         };
     };
 

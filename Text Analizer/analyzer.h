@@ -101,4 +101,4 @@ public:
 	std::string patterned_text() { return patterned_text_; };
 };
 
-int ParadigmIntersection(std::string text, std::vector< std::pair<char, char> > paradigms);
+int ParadigmIntersection(std::string text, std::vector< std::pair<char, std::string> > paradigms);
