@@ -97,7 +97,7 @@ void ParadigmStartsWithSequence::find_pattern() {
 void ParadigmEndsOnSequence::find_pattern() {
     std::string pattern = "([^ ]*)(";
     pattern += seq_;
-    pattern += "[ ])";
+    pattern += ")([ ])";
     std::regex word_regex(pattern);
     auto words_begin =
         std::sregex_iterator(text->begin(), text->end(), word_regex);
