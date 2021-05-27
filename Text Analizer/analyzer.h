@@ -3,6 +3,7 @@
 #include <vector>
 #include "analyzer.h"
 #include <regex>
+#include <utility>
 
 
 std::string read_file(const std::string& file_name);
@@ -71,3 +72,6 @@ public:
 	int number_of_words() { return result; };
 	std::string patterned_text() { return patterned_text_; };
 };
+
+
+int ParadigmIntersection(std::string text, std::vector< std::pair<char, char> > paradigms);

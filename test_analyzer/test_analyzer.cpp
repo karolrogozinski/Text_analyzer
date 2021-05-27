@@ -130,5 +130,18 @@ namespace testanalyzer
 
 			Assert::AreEqual(number, 0);
 		}
+
+
+		TEST_METHOD(TestParadigmIntersection1)
+		{
+			std::string text = "By the waters of Babylon, there we sat down and wept, when we remembered Zion";
+			std::pair <char, char> a1(1, 2);
+			std::pair <char, char> a2(2, 6);
+			std::vector< std::pair<char, char> > list = {a1, a2};
+			int number = ParadigmIntersection(text, list);
+
+
+			Assert::AreEqual(number, 8);
+		}
 	};
 }

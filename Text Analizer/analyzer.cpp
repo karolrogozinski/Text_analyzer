@@ -3,6 +3,7 @@
 #include <vector>
 #include <sstream>
 #include <regex>
+#include <tuple>
 
 #include "analyzer.h"
 
@@ -73,4 +74,31 @@ void ParadigmEqualLength::find_pattern() {
             result++;
         };
     };
+};
+
+int ParadigmIntersection(std::string text, std::vector< std::pair<char, char> > paradigms) {
+    std::string to_modify = text;
+
+    for (auto a : paradigms) {
+
+        int number = a.first;
+
+        switch (number) {
+        case 1: {
+            ParadigmLongerThan p1(to_modify, a.second);
+            to_modify = p1.patterned_text();
+            break; }
+        case 2: {
+            ParadigmShorterThan p2(to_modify, a.second);
+            to_modify = p2.patterned_text();
+            break; }
+        case 3: {
+            ParadigmEqualLength p3(to_modify, a.second);
+            to_modify = p3.patterned_text();
+            break; }
+        };
+    };
+
+    ParadigmWords p(to_modify);
+    return p.number_of_words();
 };
