@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Text Analizer", "Text Analizer\Text Analizer.vcxproj", "{AAF97FA0-D2B7-4C18-9BC5-57C6B85EA303}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_analyzer", "test_analyzer\test_analyzer.vcxproj", "{1767B2EE-80B2-45C4-88F0-3EBB4C19D074}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{AAF97FA0-D2B7-4C18-9BC5-57C6B85EA303}.Release|x64.Build.0 = Release|x64
 		{AAF97FA0-D2B7-4C18-9BC5-57C6B85EA303}.Release|x86.ActiveCfg = Release|Win32
 		{AAF97FA0-D2B7-4C18-9BC5-57C6B85EA303}.Release|x86.Build.0 = Release|Win32
+		{1767B2EE-80B2-45C4-88F0-3EBB4C19D074}.Debug|x64.ActiveCfg = Debug|x64
+		{1767B2EE-80B2-45C4-88F0-3EBB4C19D074}.Debug|x64.Build.0 = Debug|x64
+		{1767B2EE-80B2-45C4-88F0-3EBB4C19D074}.Debug|x86.ActiveCfg = Debug|Win32
+		{1767B2EE-80B2-45C4-88F0-3EBB4C19D074}.Debug|x86.Build.0 = Debug|Win32
+		{1767B2EE-80B2-45C4-88F0-3EBB4C19D074}.Release|x64.ActiveCfg = Release|x64
+		{1767B2EE-80B2-45C4-88F0-3EBB4C19D074}.Release|x64.Build.0 = Release|x64
+		{1767B2EE-80B2-45C4-88F0-3EBB4C19D074}.Release|x86.ActiveCfg = Release|Win32
+		{1767B2EE-80B2-45C4-88F0-3EBB4C19D074}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
