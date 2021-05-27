@@ -131,6 +131,14 @@ int ParadigmIntersection(std::string text, std::vector< std::pair<char, char> > 
             ParadigmEqualLength p3(to_modify, a.second);
             to_modify = p3.patterned_text();
             break; }
+        case 4: {
+            ParadigmStartsWithLetter p4(to_modify, a.second);
+            to_modify = p4.patterned_text();
+            break; }
+        case 5: {
+            ParadigmEndsOnLetter p5(to_modify, a.second);
+            to_modify = p5.patterned_text();
+            break;}
         };
     };
 

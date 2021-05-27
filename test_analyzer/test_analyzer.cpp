@@ -131,6 +131,16 @@ namespace testanalyzer
 			Assert::AreEqual(number, 0);
 		}
 
+		TEST_METHOD(TestParadigmStartsWithLetterNormal)
+		{
+			std::string text = "By the waters of Babylon, there we sat down and wept, when we remembered Zion";
+			char letter = 'e';
+			ParadigmEndsOnLetter para(text, letter);
+
+			int number = para.number_of_words();
+
+			Assert::AreEqual(number, 2);
+		}
 
 		TEST_METHOD(TestParadigmIntersection1)
 		{
