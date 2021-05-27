@@ -2,13 +2,15 @@
 //
 
 #include <iostream>
-#include "analyzer.h"
 #include <vector>
+
+#include "analyzer.h"
+#include "interface.h"
 
 
 int main()
 {
-    std::string text = read_file("war_and_peace.txt");
-    ParadigmEndsOnLetter p(text, 'a');
-    std::cout << p.patterned_text();
-}
+    std::cout << "\tWelcome in Text Analyzer!\n\n";
+    std::cout << display_menu();
+    char choice = options();
+};
