@@ -15,8 +15,8 @@ class IParadigm {
 
 public:
 	virtual void find_pattern() = 0;
-	virtual int number_of_words() = 0;
-	virtual std::string patterned_text() = 0;
+	virtual int number_of_words() { return result; };
+	virtual std::string patterned_text() { return *text; };
 };
 
 
@@ -53,7 +53,7 @@ class ParadigmShorterThan : public IParadigm {
 	std::string patterned_text_ = "";
 
 public:
-	ParadigmShorterThan(const std::string& text_, int len) { text = &text_; length = len; find_pattern();}
+	ParadigmShorterThan(const std::string& text_, int len) { text = &text_; length = len; find_pattern(); }
 	void find_pattern();
 	int number_of_words() { return result; };
 	std::string patterned_text() { return patterned_text_; };
@@ -73,5 +73,32 @@ public:
 	std::string patterned_text() { return patterned_text_; };
 };
 
+
+class ParadigmStartsWithLetter : public IParadigm{
+	int result = 0;
+	const std::string* text;
+	char letter_;
+	std::string patterned_text_ = "";
+
+public:
+	ParadigmStartsWithLetter(const std::string& text_, char letter) { text = &text_; letter_ = letter; find_pattern(); }
+	void find_pattern();
+	int number_of_words() { return result; };
+	std::string patterned_text() { return patterned_text_; };
+};
+
+
+class ParadigmEndsOnLetter : public IParadigm {
+	int result = 0;
+	const std::string* text;
+	char letter_;
+	std::string patterned_text_ = "";
+
+public:
+	ParadigmEndsOnLetter(const std::string& text_, char letter) { text = &text_; letter_ = letter; find_pattern(); }
+	void find_pattern();
+	int number_of_words() { return result; };
+	std::string patterned_text() { return patterned_text_; };
+};
 
 int ParadigmIntersection(std::string text, std::vector< std::pair<char, char> > paradigms);
