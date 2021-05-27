@@ -74,28 +74,28 @@ public:
 };
 
 
-class ParadigmStartsWithLetter : public IParadigm{
+class ParadigmStartsWithSequence : public IParadigm{
 	int result = 0;
 	const std::string* text;
-	char letter_;
+	std::string seq_;
 	std::string patterned_text_ = "";
 
 public:
-	ParadigmStartsWithLetter(const std::string& text_, char letter) { text = &text_; letter_ = letter; find_pattern(); }
+	ParadigmStartsWithSequence(const std::string& text_, std::string seq) { text = &text_; seq_ = seq; find_pattern(); }
 	void find_pattern();
 	int number_of_words() { return result; };
 	std::string patterned_text() { return patterned_text_; };
 };
 
 
-class ParadigmEndsOnLetter : public IParadigm {
+class ParadigmEndsOnSequence : public IParadigm {
 	int result = 0;
 	const std::string* text;
-	char letter_;
+	std::string seq_;
 	std::string patterned_text_ = "";
 
 public:
-	ParadigmEndsOnLetter(const std::string& text_, char letter) { text = &text_; letter_ = letter; find_pattern(); }
+	ParadigmEndsOnSequence(const std::string& text_, std::string seq) { text = &text_; seq_ = seq; find_pattern(); }
 	void find_pattern();
 	int number_of_words() { return result; };
 	std::string patterned_text() { return patterned_text_; };

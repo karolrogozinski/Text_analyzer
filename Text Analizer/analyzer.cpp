@@ -77,10 +77,10 @@ void ParadigmEqualLength::find_pattern() {
 };
 
 
-void ParadigmStartsWithLetter::find_pattern() {
-    std::string pattern = "(\\";
-    pattern += letter_;
-    pattern += "\\w+)";
+void ParadigmStartsWithSequence::find_pattern() {
+    std::string pattern = "\\b(";
+    pattern += seq_;
+    pattern += ")([^ ]*)";
     std::regex word_regex(pattern);
     auto words_begin =
         std::sregex_iterator(text->begin(), text->end(), word_regex);
@@ -94,11 +94,10 @@ void ParadigmStartsWithLetter::find_pattern() {
 };
 
 
-void ParadigmEndsOnLetter::find_pattern() {
-    std::string pattern = "(\\w+";
-    pattern += "\\";
-    pattern += letter_;
-    pattern += ")";
+void ParadigmEndsOnSequence::find_pattern() {
+    std::string pattern = "([^ ]*)(";
+    pattern += seq_;
+    pattern += "[ ])";
     std::regex word_regex(pattern);
     auto words_begin =
         std::sregex_iterator(text->begin(), text->end(), word_regex);
