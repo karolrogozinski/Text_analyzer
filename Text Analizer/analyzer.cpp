@@ -78,6 +78,10 @@ void ParadigmEqualLength::find_pattern() {
 
 
 void ParadigmStartsWithSequence::find_pattern() {
+    if (seq_.empty()) {
+        return;
+    }
+
     std::string pattern = "\\b(";
     pattern += seq_;
     pattern += ")([^ ]*)";
@@ -95,6 +99,10 @@ void ParadigmStartsWithSequence::find_pattern() {
 
 
 void ParadigmEndsOnSequence::find_pattern() {
+    if (seq_.empty()) {
+        return;
+    }
+
     std::string pattern = "([^ ]*)(";
     pattern += seq_;
     pattern += "[ ])";
