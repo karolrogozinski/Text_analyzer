@@ -74,3 +74,38 @@ void ParadigmEqualLength::find_pattern() {
         };
     };
 };
+
+
+void ParadigmStartsWithLetter::find_pattern() {
+    std::string pattern = "(\\";
+    pattern += letter_;
+    pattern += "\\w+)";
+    std::regex word_regex(pattern);
+    auto words_begin =
+        std::sregex_iterator(text->begin(), text->end(), word_regex);
+    auto words_end = std::sregex_iterator();
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        patterned_text_ += match_str += " ";
+        result++;
+    };
+};
+
+
+void ParadigmEndsOnLetter::find_pattern() {
+    std::string pattern = "(\\w+";
+    pattern += "\\";
+    pattern += letter_;
+    pattern += ")";
+    std::regex word_regex(pattern);
+    auto words_begin =
+        std::sregex_iterator(text->begin(), text->end(), word_regex);
+    auto words_end = std::sregex_iterator();
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        patterned_text_ += match_str += " ";
+        result++;
+    };
+};
