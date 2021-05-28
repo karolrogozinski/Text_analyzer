@@ -101,4 +101,7 @@ public:
 	std::string patterned_text() { return patterned_text_; };
 };
 
+std::string get_intersection(std::string text, std::vector< std::pair<char, std::string> > paradigms);
+std::string get_union(std::string text, std::vector< std::pair<char, std::string> > paradigms);
 int ParadigmIntersection(std::string text, std::vector< std::pair<char, std::string> > paradigms);
+int ParadigmUnion(std::string text, std::vector< std::pair<char, std::string> > paradigms);

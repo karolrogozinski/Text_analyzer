@@ -253,5 +253,17 @@ namespace testanalyzer
 
 			Assert::AreEqual(number, 2);
 		}
+
+		TEST_METHOD(TestParadigmUnion1)
+		{
+			std::string text = "By the waters of Babylon, there we sat down and wept, when we remembered Zion";
+			std::pair <char, std::string> a1(4, "w");
+			std::pair <char, std::string> a2(1, "2");
+			std::pair <char, std::string> a3(2, "6");
+			std::vector< std::pair<char, std::string> > list = { a1, a2, a3 };
+			int number = ParadigmUnion(text, list);
+
+			Assert::AreEqual(number, 2);
+		}
 	};
 }
