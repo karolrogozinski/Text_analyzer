@@ -10,12 +10,13 @@
 
 int main()
 {
-    std::cout << "\tWelcome in Text Analyzer!\n\n";
-    std::cout << display_menu();
-    //char choice = options();
-
     std::string text = read_file("war_and_peace.txt");
-    ParadigmEndsOnSequence p(text, "s");
+    text = clean_string(text);
+    std::vector<std::string> splitted = split_string(text);
+    for (auto a : splitted) {
+        std::cout << a << std::endl;
+    }
+    /*ParadigmEndsOnSequence p(text, "s");
     std::cout << p.patterned_text();
-    std::cout << p.number_of_words();
+    std::cout << p.number_of_words();*/
 };

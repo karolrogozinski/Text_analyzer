@@ -8,6 +8,7 @@
 #include "analyzer.h"
 
 
+// read text from file 
 std::string read_file(const std::string& file_name) {
     auto ss = std::ostringstream{};
     std::ifstream file(file_name);
@@ -15,6 +16,38 @@ std::string read_file(const std::string& file_name) {
     return ss.str();
 };
 
+
+// clean text from non-letter characters and lowercase
+std::string clean_string(const std::string& text_) {
+    std::string exclude_chars(",.!'?()[]{}@#$%^&*\"<>?/\\0123456789-_");
+    std::string text = text_;
+
+    auto write_iter = text.begin();
+    for (auto read_iter = text.begin(); read_iter != text.end(); ++read_iter) {
+        auto c = *read_iter;
+        if (exclude_chars.find(c) != std::string::npos) continue;
+        *write_iter = tolower((unsigned char)c);
+        ++write_iter;
+    }
+    text.erase(write_iter, text.end());
+
+    return text;
+};
+
+
+// split string to vector of words
+std::vector <std::string> split_string(const std::string& text) {
+    std::string word = "";
+    std::vector <std::string> splitted;
+    for (auto a : text) {
+        if (a == ' ' && word != "") { 
+            splitted.push_back(word); 
+            word = ""; continue;
+        }
+        if (a != ' ') word += a;
+    };
+    return splitted;
+};
 
 // Count all the words in text
 void ParadigmWords::find_pattern() {
@@ -78,9 +111,7 @@ void ParadigmEqualLength::find_pattern() {
 
 
 void ParadigmStartsWithSequence::find_pattern() {
-    if (seq_.empty()) {
-        return;
-    }
+    if (seq_.empty()) { return; }
 
     std::string pattern = "\\b(";
     pattern += seq_;
@@ -99,9 +130,7 @@ void ParadigmStartsWithSequence::find_pattern() {
 
 
 void ParadigmEndsOnSequence::find_pattern() {
-    if (seq_.empty()) {
-        return;
-    }
+    if (seq_.empty()) { return; }
 
     std::string pattern = "([^ ]*)(";
     pattern += seq_;
