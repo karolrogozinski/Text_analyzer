@@ -221,7 +221,7 @@ namespace testanalyzer
 
 		TEST_METHOD(TestParadigmEndsOnSequenceLongPattern)
 		{
-			std::string text = "By the waters of Babylon, there we sat down and wept, when we remembered Zion waters ";
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion waters ";
 			std::string letter = "ers";
 			ParadigmEndsOnSequence para(text, letter);
 
@@ -256,14 +256,38 @@ namespace testanalyzer
 
 		TEST_METHOD(TestParadigmUnion1)
 		{
-			std::string text = "By the waters of Babylon, there we sat down and wept, when we remembered Zion";
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
 			std::pair <char, std::string> a1(4, "w");
 			std::pair <char, std::string> a2(1, "2");
 			std::pair <char, std::string> a3(2, "6");
 			std::vector< std::pair<char, std::string> > list = { a1, a2, a3 };
 			int number = ParadigmUnion(text, list);
 
-			Assert::AreEqual(number, 2);
+			Assert::AreEqual(number, 15);
+		}
+
+		TEST_METHOD(TestParadigmUnion2)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			std::pair <char, std::string> a1(1, "5");
+			std::pair <char, std::string> a2(2, "3");
+			std::pair <char, std::string> a3(3, "4");
+			std::vector< std::pair<char, std::string> > list = { a1, a2, a3 };
+			int number = ParadigmUnion(text, list);
+
+			Assert::AreEqual(number, 11);
+		}
+
+		TEST_METHOD(TestParadigmUnion3)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			std::pair <char, std::string> a1(4, "B");
+			std::pair <char, std::string> a2(5, "n");
+			std::pair <char, std::string> a3(3, "2");
+			std::vector< std::pair<char, std::string> > list = { a1, a2, a3 };
+			int number = ParadigmUnion(text, list);
+
+			Assert::AreEqual(number, 8);
 		}
 	};
 }

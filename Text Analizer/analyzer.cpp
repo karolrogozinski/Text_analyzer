@@ -8,14 +8,6 @@
 #include "analyzer.h"
 
 
-// read text from file 
-std::string read_file(const std::string& file_name) {
-    auto ss = std::ostringstream{};
-    std::ifstream file(file_name);
-    ss << file.rdbuf();
-    return ss.str();
-};
-
 
 // clean text from non-letter characters and lowercase
 std::string clean_string(const std::string& text_) {
@@ -26,12 +18,21 @@ std::string clean_string(const std::string& text_) {
     for (auto read_iter = text.begin(); read_iter != text.end(); ++read_iter) {
         auto c = *read_iter;
         if (exclude_chars.find(c) != std::string::npos) continue;
-        *write_iter = tolower((unsigned char)c);
+        *write_iter = c;
         ++write_iter;
     }
     text.erase(write_iter, text.end());
+    text += " ";
 
     return text;
+};
+
+// read text from file 
+std::string read_file(const std::string& file_name) {
+    auto ss = std::ostringstream{};
+    std::ifstream file(file_name);
+    ss << file.rdbuf();
+    return ss.str();
 };
 
 
@@ -147,6 +148,7 @@ void ParadigmEndsOnSequence::find_pattern() {
     };
 };
 
+//return intersection of paradigms (given in vector) used on given text
 std::string get_intersection(std::string text, std::vector< std::pair<char, std::string> > paradigms) {
     std::string to_modify = text;
 
@@ -180,16 +182,18 @@ std::string get_intersection(std::string text, std::vector< std::pair<char, std:
     return to_modify;
 }
 
+//return number of words being in intersection of paradigms given in vector
 int ParadigmIntersection(std::string text, std::vector< std::pair<char, std::string> > paradigms) {
     std::string to_modify = get_intersection(text, paradigms);
     ParadigmWords p(to_modify);
     return p.number_of_words();
 };
 
+//return union of paradigms (given in vector) used on given text
 std::string get_union(std::string text, std::vector< std::pair<char, std::string> > paradigms) {
 
     std::string to_modify;
-    std::string text_copy = text;
+    std::string text_copy = clean_string(text);
 
     int first = 0;
     int second = 1;
@@ -199,21 +203,19 @@ std::string get_union(std::string text, std::vector< std::pair<char, std::string
     std::vector< std::pair<char, std::string> > curr_vec = { first_pair, second_pair };
 
     std::string union_text = get_intersection(text_copy, curr_vec); //intersection of A and B
+    std::vector <std::string> splitted_union = split_string(union_text);
 
     curr_vec = { first_pair };
     std::string first_text = get_intersection(text_copy, curr_vec); //get A
-
     curr_vec = { second_pair };
     std::string second_text = get_intersection(text_copy, curr_vec); //get B
 
-    std::string::size_type f = first_text.find(union_text);
-    //std::string::size_type s = second_text.find(union_text);
-
-    if (f != std::string::npos) { first_text.erase(f, union_text.length()); }; //A - intersection  !!!!
-    //need to split string into string words and then remove word by word
-    //if (s != std::string::npos) { second_text.erase(s, union_text.length()); };
-
-    first_text += second_text; //A - intersection + B
+    for (auto a : splitted_union) {                                       //
+        std::string::size_type f = first_text.find(a);                    //A - intersection
+        if (f != std::string::npos) { first_text.erase(f, a.length()); }; //
+    }
+    
+    first_text += second_text; //A (wo intersection) + B
     to_modify = first_text;
 
     int len = paradigms.size() - 2;
@@ -221,28 +223,25 @@ std::string get_union(std::string text, std::vector< std::pair<char, std::string
 
     while (len > 0) {
 
-        //first_pair = second_pair; //2nd pattern
         second_pair = paradigms[second]; //3rd pattern
         curr_vec = { second_pair };
+        second_text = get_intersection(text_copy, curr_vec); //get C
+        union_text = get_intersection(to_modify, curr_vec); //next intersection
+        splitted_union = split_string(union_text);
 
-        //union_text = get_intersection(text_copy, curr_vec); //
-
-        second_text = get_intersection(text_copy, curr_vec); //get C, wyfiltrowane z ca³ego tekstu
-
-        union_text = get_intersection(to_modify, curr_vec); //text mutual for AiB oraz C, czêœæ wspólna wystêpuj¹ca w tym ograniczonym kawa³ku
-
-        std::string::size_type f = to_modify.find(union_text);
-
-        if (f != std::string::npos) { to_modify.erase(f, union_text.length()); }; //A+B - intersection with C
-
-        //first_text += second_text;
-        to_modify += second_text; //dodaje do modyfikowanego tekstu C, powstaje //A+B+C
+        for (auto a : splitted_union) {                                      //
+            std::string::size_type f = to_modify.find(a);                    //erease intersection 
+            if (f != std::string::npos) { to_modify.erase(f, a.length()); }; //
+        }
+       
+        to_modify += second_text; //add C, and so on
 
         len -= 1; second += 1;
     }
     return to_modify;
 }
 
+//return number of words being in union of paradigms given in vector
 int ParadigmUnion(std::string text, std::vector< std::pair<char, std::string> > paradigms) {
 
     std::string union_string = get_union(text, paradigms);
