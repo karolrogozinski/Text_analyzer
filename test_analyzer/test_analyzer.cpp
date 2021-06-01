@@ -289,5 +289,75 @@ namespace testanalyzer
 
 			Assert::AreEqual(number, 8);
 		}
+
+		TEST_METHOD(TestEreaseParadigmOneElement)
+		{
+			std::pair <char, std::string> a1(4, "B");
+			std::pair <char, std::string> a2(5, "n");
+			std::pair <char, std::string> a3(3, "2");
+			std::pair <char, std::string> a4(1, "2");
+			std::pair <char, std::string> a5(0, "");
+			std::vector< std::pair<char, std::string> > list = { a1, a2, a3, a4, a5 };
+			int index = 3;
+
+			list = erease_paradigm(list, index);
+
+			std::vector< std::pair<char, std::string> > expected_list = {a1, a2, a4, a5};
+			bool out;
+
+			list == expected_list ? out = true : out = false;
+
+			Assert::AreEqual(out, true);
+		}
+
+		TEST_METHOD(TestEreaseParadigmTwoElements)
+		{
+			std::pair <char, std::string> a1(4, "B");
+			std::pair <char, std::string> a2(5, "n");
+			std::pair <char, std::string> a3(3, "2");
+			std::pair <char, std::string> a4(1, "2");
+			std::pair <char, std::string> a5(0, "");
+			std::vector< std::pair<char, std::string> > list = { a1, a2, a4, a5 };
+
+			int index = 3;
+			list = erease_paradigm(list, index);
+			index = 4;
+			list = erease_paradigm(list, index);
+
+			std::vector< std::pair<char, std::string> > expected_list = { a2, a4, a5 };
+
+			bool out;
+			list == expected_list ? out = true : out = false;
+
+			Assert::AreEqual(out, true);
+		}
+
+		TEST_METHOD(TestEreaseParadigmAllElements)
+		{
+			std::pair <char, std::string> a1(4, "B");
+			std::pair <char, std::string> a2(5, "n");
+			std::pair <char, std::string> a3(3, "2");
+			std::pair <char, std::string> a4(1, "2");
+			std::pair <char, std::string> a5(0, "");
+			std::vector< std::pair<char, std::string> > list = { a1, a2, a4, a5 };
+
+			int index = 3;
+			list = erease_paradigm(list, index);
+			index = 4;
+			list = erease_paradigm(list, index);
+			index = 5;
+			list = erease_paradigm(list, index);
+			index = 0;
+			list = erease_paradigm(list, index);
+			index = 1;
+			list = erease_paradigm(list, index);
+
+			std::vector< std::pair<char, std::string> > expected_list = {};
+
+			bool out;
+			list == expected_list ? out = true : out = false;
+
+			Assert::AreEqual(out, true);
+		}
 	};
 }

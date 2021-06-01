@@ -16,6 +16,7 @@ std::vector <std::string> split_string(const std::string& text);
 class IParadigm {
 	int result;
 	std::string* text;
+	int index = 0;
 
 public:
 	virtual void find_pattern() = 0;
@@ -27,6 +28,7 @@ public:
 class ParadigmWords : public IParadigm {
 	int result = 0;
 	const std::string* text;
+	int index = 0;
 
 public:
 	ParadigmWords(const std::string& text_) { text = &text_; find_pattern(); }
@@ -39,6 +41,7 @@ public:
 class ParadigmLongerThan : public IParadigm {
 	int result = 0;
 	const std::string* text;
+	int index = 1;
 	int length;
 	std::string patterned_text_ = "";
 
@@ -53,6 +56,7 @@ public:
 class ParadigmShorterThan : public IParadigm {
 	int result = 0;
 	const std::string* text;
+	int index = 2;
 	int length;
 	std::string patterned_text_ = "";
 
@@ -67,6 +71,7 @@ public:
 class ParadigmEqualLength : public IParadigm {
 	int result = 0;
 	const std::string* text;
+	int index = 3;
 	int length;
 	std::string patterned_text_ = "";
 
@@ -81,6 +86,7 @@ public:
 class ParadigmStartsWithSequence : public IParadigm{
 	int result = 0;
 	const std::string* text;
+	int index = 4;
 	std::string seq_;
 	std::string patterned_text_ = "";
 
@@ -95,6 +101,7 @@ public:
 class ParadigmEndsOnSequence : public IParadigm {
 	int result = 0;
 	const std::string* text;
+	int index = 5;
 	std::string seq_;
 	std::string patterned_text_ = "";
 
@@ -109,3 +116,5 @@ std::string get_intersection(std::string text, std::vector< std::pair<char, std:
 std::string get_union(std::string text, std::vector< std::pair<char, std::string> > paradigms);
 int ParadigmIntersection(std::string text, std::vector< std::pair<char, std::string> > paradigms);
 int ParadigmUnion(std::string text, std::vector< std::pair<char, std::string> > paradigms);
+
+std::vector <std::pair<char, std::string>> erease_paradigm(std::vector <std::pair<char, std::string>> list, int index);
