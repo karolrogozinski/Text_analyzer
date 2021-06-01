@@ -2,6 +2,7 @@
 #include "../Text Analizer/analyzer.h"
 #include <string>
 #include <sstream>
+#include <iostream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -359,5 +360,57 @@ namespace testanalyzer
 
 			Assert::AreEqual(out, true);
 		}
+
+		//TEST_METHOD(TestOutFunctionPure)
+		//{
+		//	std::stringstream output;
+		//	std::string expected_output, given_output;
+		//	std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
+		//	ParadigmWords para(text);
+
+		//	output << para;
+		//	given_output = output.str();
+		//	expected_output = "Words' number is 15.";
+		//	//std::vector< std::pair<char, std::string> > list = { a1, a2, a3 };
+		//	//int number = ParadigmUnion(text, list);
+
+		//	Assert::AreEqual(given_output, expected_output);
+		//}
+
+		TEST_METHOD(TestParadigmName1)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmWords p(text);
+			std::string expected = "Number of words ";
+			Assert::AreEqual(expected, p.name());
+		}
+
+		TEST_METHOD(TestParadigmName2)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmLongerThan p(text, 2);
+			std::string expected = "Words longer than 2 chars ";
+			Assert::AreEqual(expected, p.name());
+		}
+
+		TEST_METHOD(TestParadigmName3)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmStartsWithSequence p(text, "B");
+			std::string expected = "Words starting with 'B' ";
+			Assert::AreEqual(expected, p.name());
+		}
+
+		TEST_METHOD(TestParadigmName4)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmEndsOnSequence p(text, "ajwar");
+			std::string expected = "Words ending on 'ajwar' ";
+			Assert::AreEqual(expected, p.name());
+		}
 	};
+
+
+
+
 }
