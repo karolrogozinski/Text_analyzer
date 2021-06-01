@@ -248,3 +248,16 @@ int ParadigmUnion(std::string text, std::vector< std::pair<char, std::string> > 
     ParadigmWords p(union_string);
     return p.number_of_words();
 };
+
+//remove paradigm of given index from vector containing themselves
+std::vector <std::pair<char, std::string>> erease_paradigm(std::vector <std::pair<char, std::string>> list, int index) {
+    int i = 0;
+    for (auto a : list) {
+        if ((int) a.first == index) {
+            list.erase(list.begin() + i);
+            return list;
+        }
+        ++i;
+    }
+    return list;
+}

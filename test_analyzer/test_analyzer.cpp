@@ -2,6 +2,7 @@
 #include "../Text Analizer/analyzer.h"
 #include <string>
 #include <sstream>
+#include <iostream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -289,5 +290,127 @@ namespace testanalyzer
 
 			Assert::AreEqual(number, 8);
 		}
+
+		TEST_METHOD(TestEreaseParadigmOneElement)
+		{
+			std::pair <char, std::string> a1(4, "B");
+			std::pair <char, std::string> a2(5, "n");
+			std::pair <char, std::string> a3(3, "2");
+			std::pair <char, std::string> a4(1, "2");
+			std::pair <char, std::string> a5(0, "");
+			std::vector< std::pair<char, std::string> > list = { a1, a2, a3, a4, a5 };
+			int index = 3;
+
+			list = erease_paradigm(list, index);
+
+			std::vector< std::pair<char, std::string> > expected_list = {a1, a2, a4, a5};
+			bool out;
+
+			list == expected_list ? out = true : out = false;
+
+			Assert::AreEqual(out, true);
+		}
+
+		TEST_METHOD(TestEreaseParadigmTwoElements)
+		{
+			std::pair <char, std::string> a1(4, "B");
+			std::pair <char, std::string> a2(5, "n");
+			std::pair <char, std::string> a3(3, "2");
+			std::pair <char, std::string> a4(1, "2");
+			std::pair <char, std::string> a5(0, "");
+			std::vector< std::pair<char, std::string> > list = { a1, a2, a4, a5 };
+
+			int index = 3;
+			list = erease_paradigm(list, index);
+			index = 4;
+			list = erease_paradigm(list, index);
+
+			std::vector< std::pair<char, std::string> > expected_list = { a2, a4, a5 };
+
+			bool out;
+			list == expected_list ? out = true : out = false;
+
+			Assert::AreEqual(out, true);
+		}
+
+		TEST_METHOD(TestEreaseParadigmAllElements)
+		{
+			std::pair <char, std::string> a1(4, "B");
+			std::pair <char, std::string> a2(5, "n");
+			std::pair <char, std::string> a3(3, "2");
+			std::pair <char, std::string> a4(1, "2");
+			std::pair <char, std::string> a5(0, "");
+			std::vector< std::pair<char, std::string> > list = { a1, a2, a4, a5 };
+
+			int index = 3;
+			list = erease_paradigm(list, index);
+			index = 4;
+			list = erease_paradigm(list, index);
+			index = 5;
+			list = erease_paradigm(list, index);
+			index = 0;
+			list = erease_paradigm(list, index);
+			index = 1;
+			list = erease_paradigm(list, index);
+
+			std::vector< std::pair<char, std::string> > expected_list = {};
+
+			bool out;
+			list == expected_list ? out = true : out = false;
+
+			Assert::AreEqual(out, true);
+		}
+
+		//TEST_METHOD(TestOutFunctionPure)
+		//{
+		//	std::stringstream output;
+		//	std::string expected_output, given_output;
+		//	std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
+		//	ParadigmWords para(text);
+
+		//	output << para;
+		//	given_output = output.str();
+		//	expected_output = "Words' number is 15.";
+		//	//std::vector< std::pair<char, std::string> > list = { a1, a2, a3 };
+		//	//int number = ParadigmUnion(text, list);
+
+		//	Assert::AreEqual(given_output, expected_output);
+		//}
+
+		TEST_METHOD(TestParadigmName1)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmWords p(text);
+			std::string expected = "Number of words ";
+			Assert::AreEqual(expected, p.name());
+		}
+
+		TEST_METHOD(TestParadigmName2)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmLongerThan p(text, 2);
+			std::string expected = "Words longer than 2 chars ";
+			Assert::AreEqual(expected, p.name());
+		}
+
+		TEST_METHOD(TestParadigmName3)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmStartsWithSequence p(text, "B");
+			std::string expected = "Words starting with 'B' ";
+			Assert::AreEqual(expected, p.name());
+		}
+
+		TEST_METHOD(TestParadigmName4)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmEndsOnSequence p(text, "ajwar");
+			std::string expected = "Words ending on 'ajwar' ";
+			Assert::AreEqual(expected, p.name());
+		}
 	};
+
+
+
+
 }
