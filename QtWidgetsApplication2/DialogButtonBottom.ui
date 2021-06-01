@@ -41,7 +41,7 @@
       <widget class="QComboBox" name="comboBox">
        <item>
         <property name="text">
-         <string>Filters Inheritance</string>
+         <string>Filters Intersection</string>
         </property>
        </item>
        <item>

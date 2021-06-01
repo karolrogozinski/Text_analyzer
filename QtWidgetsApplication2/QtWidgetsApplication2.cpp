@@ -97,6 +97,8 @@ void MainWindow::newFilters() {
             union_filters.push_back(filter);
         };
     };
+
+    set_filters_description();
 };
 
 
@@ -132,4 +134,32 @@ void MainWindow::runAnalyze() {
     std::string new_label = "Filtered: (" + std::to_string(pw.number_of_words());
     new_label += " words):";
     ui.label_2->setText(QString::fromLocal8Bit(new_label.c_str()));
+};
+
+
+void MainWindow::set_filters_description() {
+    std::string text = "";
+
+    if (!filters.empty()) {
+        text += "Intersections:\n";
+        std::vector <std::string> desc = describe_filters(filters);
+        for (auto a : desc) {
+            text += " * ";
+            text += a;
+            text += '\n';
+        };
+        text += "\n";
+    };
+
+    if (!union_filters.empty()) {
+        text += "Unions:\n";
+        std::vector <std::string> desc = describe_filters(union_filters);
+        for (auto a : desc) {
+            text += " * ";
+            text += a;
+            text += '\n';
+        };
+    };
+
+    ui.textBrowser_2->setText(QString::fromLocal8Bit(text.c_str()));
 };

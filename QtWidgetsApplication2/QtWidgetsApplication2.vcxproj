@@ -101,6 +101,7 @@
     <ClCompile Include="DialogButtonBottom.cpp" />
     <ClCompile Include="QtWidgetsApplication2.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="remove_filters.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DialogButtonBottom.h" />

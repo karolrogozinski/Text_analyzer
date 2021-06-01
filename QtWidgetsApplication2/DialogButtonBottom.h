@@ -23,6 +23,6 @@ public:
 
 	int typeFilters() { return ui.comboBox->currentIndex(); }
 
-protected:
+private:
 	Ui::Dialog ui;
 };

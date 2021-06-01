@@ -12,6 +12,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = Q_NULLPTR);
+    void set_filters_description();
 
 public slots:
     void readFile();

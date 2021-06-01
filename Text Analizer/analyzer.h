@@ -195,3 +195,5 @@ int ParadigmIntersection(std::string text, std::vector< std::pair<char, std::str
 int ParadigmUnion(std::string text, std::vector< std::pair<char, std::string> > paradigms);
 
 std::vector <std::pair<char, std::string>> erease_paradigm(std::vector <std::pair<char, std::string>> list, int index);
+
+std::vector <std::string> describe_filters(std::vector <std::pair<char, std::string>> filters);

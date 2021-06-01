@@ -214,6 +214,14 @@ std::string get_intersection(std::string text, std::vector< std::pair<char, std:
             ParadigmEndsOnSequence p5(to_modify, a.second);
             to_modify = p5.patterned_text();
             break; }
+        case 6: {
+            ParadigmContainSequence p6(to_modify, a.second);
+            to_modify = p6.patterned_text();
+            break; }
+        case 7: {
+            ParadigmCustom p7(to_modify, a.second);
+            to_modify = p7.patterned_text();
+            break; }
         };
     };
     return to_modify;
@@ -298,3 +306,36 @@ std::vector <std::pair<char, std::string>> erease_paradigm(std::vector <std::pai
     }
     return list;
 }
+
+
+std::vector <std::string> describe_filters(std::vector <std::pair<char, std::string>> filters) {
+    std::vector <std::string> description;
+    for (auto a : filters) {
+        int number = a.first;
+
+        switch (number) {
+        case 1: {
+            description.push_back("Length longer than: " + a.second);
+            break; }
+        case 2: {
+            description.push_back("Length shorter than: " + a.second);
+            break; }
+        case 3: {
+            description.push_back("Length equal: " + a.second);
+            break; }
+        case 4: {
+            description.push_back("Start with sequance: " + a.second);
+            break; }
+        case 5: {
+            description.push_back("End with sequance: " + a.second);
+            break; }
+        case 6: {
+            description.push_back("Contain sequance: " + a.second);
+            break; }
+        case 7: {
+            description.push_back("Custom word regex: " + a.second);
+            break; }
+        };
+    };
+    return description;
+};

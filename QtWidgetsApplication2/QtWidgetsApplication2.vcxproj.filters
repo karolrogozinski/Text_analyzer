@@ -59,5 +59,8 @@
     <QtUic Include="DialogButtonBottom.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="remove_filters.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>
