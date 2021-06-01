@@ -51,6 +51,7 @@ std::vector <std::string> split_string(const std::string& text) {
     return splitted;
 };
 
+
 // Count all the words in text
 void ParadigmWords::find_pattern() {
     std::regex word_regex("(\\w+)");
@@ -138,6 +139,41 @@ void ParadigmEndsOnSequence::find_pattern() {
     pattern += seq_;
     pattern += ")([ ])";
     std::regex word_regex(pattern);
+    auto words_begin =
+        std::sregex_iterator(text->begin(), text->end(), word_regex);
+    auto words_end = std::sregex_iterator();
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        patterned_text_ += match_str += " ";
+        result++;
+    };
+};
+
+
+void ParadigmContainSequence::find_pattern() {
+    if (seq_.empty()) { return; }
+
+    std::string pattern = "([^ ]*)(";
+    pattern += seq_;
+    pattern += ")([^ ]*)([ ])";
+    std::regex word_regex(pattern);
+    auto words_begin =
+        std::sregex_iterator(text->begin(), text->end(), word_regex);
+    auto words_end = std::sregex_iterator();
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        patterned_text_ += match_str += " ";
+        result++;
+    };
+};
+
+
+void ParadigmCustom::find_pattern() {
+    if (regex_.empty()) { return; }
+
+    std::regex word_regex(regex_);
     auto words_begin =
         std::sregex_iterator(text->begin(), text->end(), word_regex);
     auto words_end = std::sregex_iterator();

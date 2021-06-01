@@ -150,6 +150,45 @@ public:
 	std::string patterned_text() { return patterned_text_; };
 };
 
+
+class ParadigmContainSequence : public IParadigm {
+	int result = 0;
+	const std::string* text;
+	int index = 6;
+	std::string seq_;
+	std::string label = "contain ";
+	std::string patterned_text_ = "";
+	std::string name_;
+
+public:
+	std::string name() { return name_; }
+	void set_name(std::string seq) { name_ = "Words contain '" + seq + "' "; }
+	ParadigmContainSequence(const std::string& text_, std::string seq) { text = &text_; seq_ = seq; find_pattern(); set_name(seq); }
+	void find_pattern();
+	int number_of_words() { return result; };
+	std::string patterned_text() { return patterned_text_; };
+};
+
+
+class ParadigmCustom : public IParadigm {
+	int result = 0;
+	const std::string* text;
+	int index = 7;
+	std::string regex_;
+	std::string label = "custom regex ";
+	std::string patterned_text_ = "";
+	std::string name_;
+
+public:
+	std::string name() { return name_; }
+	void set_name() { name_ = "Custom regex word: '" + regex_ + "' "; }
+	ParadigmCustom(const std::string& text_, std::string regex) { text = &text_; regex_ = regex; find_pattern(); set_name(); }
+	void find_pattern();
+	int number_of_words() { return result; };
+	std::string patterned_text() { return patterned_text_; };
+};
+
+
 std::string get_intersection(std::string text, std::vector< std::pair<char, std::string> > paradigms);
 std::string get_union(std::string text, std::vector< std::pair<char, std::string> > paradigms);
 int ParadigmIntersection(std::string text, std::vector< std::pair<char, std::string> > paradigms);
