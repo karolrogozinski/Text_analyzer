@@ -29,7 +29,7 @@ std::string clean_string(const std::string& text_) {
 
 // read text from file 
 std::string read_file(const std::string& file_name) {
-    auto ss = std::ostringstream{};
+    std::stringstream ss;
     std::ifstream file(file_name);
     ss << file.rdbuf();
     return ss.str();

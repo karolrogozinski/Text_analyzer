@@ -24,6 +24,7 @@
     <ProjectGuid>{aaf97fa0-d2b7-4c18-9bc5-57c6b85ea303}</ProjectGuid>
     <RootNamespace>TextAnalizer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Text Analyzer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -140,15 +141,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="analyzer.cpp" />
-    <ClCompile Include="interface.cpp" />
     <ClCompile Include="Text Analizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="analyzer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="interface.h" />
-    <Text Include="war_and_peace.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

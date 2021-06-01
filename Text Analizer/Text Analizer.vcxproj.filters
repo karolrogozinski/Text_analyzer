@@ -21,21 +21,10 @@
     <ClCompile Include="analyzer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="analyzer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="war_and_peace.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="interface.h">
-      <Filter>Header Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>
