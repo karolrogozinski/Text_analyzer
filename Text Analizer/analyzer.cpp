@@ -27,6 +27,7 @@ std::string clean_string(const std::string& text_) {
     return text;
 };
 
+
 // read text from file 
 std::string read_file(const std::string& file_name) {
     std::stringstream ss;
