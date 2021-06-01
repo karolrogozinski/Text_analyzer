@@ -18,6 +18,7 @@ public slots:
     void readFile();
     void newFilters();
     void runAnalyze();
+    void removeFilters();
 
 private:
     Ui::MainWindow ui;

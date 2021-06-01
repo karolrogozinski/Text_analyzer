@@ -243,6 +243,10 @@ std::string get_union(std::string text, std::vector< std::pair<char, std::string
     int first = 0;
     int second = 1;
 
+    if (paradigms.size() < 2) {
+        return get_intersection(text_copy, paradigms);
+    }
+
     std::pair<char, std::string> first_pair = paradigms[first];
     std::pair<char, std::string> second_pair = paradigms[second];
     std::vector< std::pair<char, std::string> > curr_vec = { first_pair, second_pair };

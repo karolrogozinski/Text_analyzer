@@ -49,9 +49,15 @@
     <ClCompile Include="..\Text Analizer\analyzer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="remove_filters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DialogButtonBottom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="remove_filters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

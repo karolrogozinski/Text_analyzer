@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include "DialogButtonBottom.h"
+#include "remove_filters.h"
 #include <vector>
 #include <tuple>
 
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui.actionOpen_new_file, SIGNAL(triggered()), this, SLOT(readFile()));
     connect(ui.actionAdd_filter, SIGNAL(triggered()), this, SLOT(newFilters()));
     connect(ui.actionRun_analyze, SIGNAL(triggered()), this, SLOT(runAnalyze()));
+    connect(ui.actionRemove_filter, SIGNAL(triggered()), this, SLOT(removeFilters()));
 }
 
 
@@ -102,6 +104,27 @@ void MainWindow::newFilters() {
 };
 
 
+void MainWindow::removeFilters() {
+    DialogRemove dialog(filters, union_filters);
+    dialog.exec();
+    if (!dialog.result()) { return; }
+    if (dialog.checkBox()) {
+        filters.clear();
+        union_filters.clear();
+    };
+    if (dialog.checkBox3()) {
+        int number = filters[dialog.typeFilters()].first;
+        filters = erease_paradigm(filters, number);
+    };
+    if (dialog.checkBox2()) {
+        int number = union_filters[dialog.typeFilters2()].first;
+        union_filters = erease_paradigm(union_filters, number);
+    };
+
+    set_filters_description();
+};
+
+
 void MainWindow::runAnalyze() {
     if (current_text == "") {
         QMessageBox msgBox;
@@ -159,6 +182,10 @@ void MainWindow::set_filters_description() {
             text += a;
             text += '\n';
         };
+    };
+
+    if (text.empty()) {
+        text = "Filtres not chosen.";
     };
 
     ui.textBrowser_2->setText(QString::fromLocal8Bit(text.c_str()));

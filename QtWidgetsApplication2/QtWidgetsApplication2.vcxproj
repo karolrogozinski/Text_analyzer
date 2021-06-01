@@ -92,6 +92,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="remove_filters.cpp" />
     <QtRcc Include="QtWidgetsApplication2.qrc" />
     <QtRcc Include="Resource.qrc" />
     <QtUic Include="DialogButtonBottom.ui" />
@@ -105,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DialogButtonBottom.h" />
+    <ClInclude Include="remove_filters.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
