@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/QtWidgetsApplication2">
+    <file>pobrany plik.png</file>
     <file>sign-add-icon.png</file>
     <file>remove-icon-16.jpg</file>
     <file>folder+open+icon-1320161390409087972.png</file>

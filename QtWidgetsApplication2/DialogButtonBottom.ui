@@ -31,8 +31,8 @@
    <string>Add filtres</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../../../Downloads/sign-add-icon.png</normaloff>../../../../Downloads/sign-add-icon.png</iconset>
+   <iconset resource="../../text-analyzer/NewFolder/QtWidgetsApplication2/QtWidgetsApplication2.qrc">
+    <normaloff>:/add/sign-add-icon.png</normaloff>:/add/sign-add-icon.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
@@ -312,7 +312,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../text-analyzer/NewFolder/QtWidgetsApplication2/QtWidgetsApplication2.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>okButton</sender>

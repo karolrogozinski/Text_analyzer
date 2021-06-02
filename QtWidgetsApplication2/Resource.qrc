@@ -1,6 +1,9 @@
 <RCC>
-    <qresource prefix="/new/prefix1">
-        <file>door_exit.png</file>
-        <file>media_play_green.png</file>
-    </qresource>
+  <qresource prefix="/new/prefix1">
+    <file>pobrany plik.png</file>
+    <file>remove-icon-16.jpg</file>
+    <file>sign-add-icon.png</file>
+    <file>door_exit.png</file>
+    <file>media_play_green.png</file>
+  </qresource>
 </RCC>
