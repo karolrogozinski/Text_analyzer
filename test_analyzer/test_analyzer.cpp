@@ -437,6 +437,13 @@ namespace testanalyzer
 			Assert::AreEqual(p.number_of_words(), (int)0);
 		}
 
+		TEST_METHOD(TestParadigmContainSequenceSpaces)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
+			ParadigmContainSequence p(text, "       ");
+			Assert::AreEqual(p.number_of_words(), (int)0);
+		}
+
 		TEST_METHOD(TestParadigmContainSequenceEmpty)
 		{
 			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
