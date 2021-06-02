@@ -118,7 +118,7 @@ void ParadigmStartsWithSequence::find_pattern() {
 
     std::string pattern = "\\b(";
     pattern += seq_;
-    pattern += ")([^ ]*)";
+    pattern += ")([A-Za-z]*)";
     std::regex word_regex(pattern);
     auto words_begin =
         std::sregex_iterator(text->begin(), text->end(), word_regex);
@@ -156,7 +156,7 @@ void ParadigmContainSequence::find_pattern() {
 
     std::string pattern = "([^ ]*)(";
     pattern += seq_;
-    pattern += ")([^ ]*)([ ])";
+    pattern += ")([A-Za-z]*)";
     std::regex word_regex(pattern);
     auto words_begin =
         std::sregex_iterator(text->begin(), text->end(), word_regex);
