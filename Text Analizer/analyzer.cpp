@@ -152,7 +152,7 @@ void ParadigmEndsOnSequence::find_pattern() {
 
 
 void ParadigmContainSequence::find_pattern() {
-    if (seq_.empty()) { return; }
+    if (seq_.empty() || seq_ == " ") { return; }  //to correct for more spaces
 
     std::string pattern = "([^ ]*)(";
     pattern += seq_;
@@ -328,13 +328,13 @@ std::vector <std::string> describe_filters(std::vector <std::pair<char, std::str
             description.push_back("Length equal: " + a.second);
             break; }
         case 4: {
-            description.push_back("Start with sequance: " + a.second);
+            description.push_back("Start with sequence: " + a.second);
             break; }
         case 5: {
-            description.push_back("End with sequance: " + a.second);
+            description.push_back("End with sequence: " + a.second);
             break; }
         case 6: {
-            description.push_back("Contain sequance: " + a.second);
+            description.push_back("Contain sequence: " + a.second);
             break; }
         case 7: {
             description.push_back("Custom word regex: " + a.second);
