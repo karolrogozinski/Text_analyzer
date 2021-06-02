@@ -26,8 +26,8 @@
    <string>Remove Filters</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../../../Downloads/remove-icon-16.jpg</normaloff>../../../../Downloads/remove-icon-16.jpg</iconset>
+   <iconset resource="QtWidgetsApplication2.qrc">
+    <normaloff>:/QtWidgetsApplication2/remove-icon-16.jpg</normaloff>:/QtWidgetsApplication2/remove-icon-16.jpg</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -130,7 +130,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="QtWidgetsApplication2.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>okButton</sender>
