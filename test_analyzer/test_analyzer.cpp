@@ -408,6 +408,83 @@ namespace testanalyzer
 			std::string expected = "Words ending on 'ajwar' ";
 			Assert::AreEqual(expected, p.name());
 		}
+
+		TEST_METHOD(TestParadigmContainSequence1)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmContainSequence p(text, "he water");
+			Assert::AreEqual(p.number_of_words(), (int) 1);
+		}
+
+		TEST_METHOD(TestParadigmContainSequence2)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion";
+			ParadigmContainSequence p(text, "er");
+			Assert::AreEqual(p.number_of_words(), (int)3);
+		}
+
+		TEST_METHOD(TestParadigmContainSequence3)
+		{
+			std::string text = "By the waters of Babylon there we sat down ande w glorious almie wghty ";
+			ParadigmContainSequence p(text, "e w");
+			Assert::AreEqual(p.number_of_words(), (int)4);
+		}
+
+		TEST_METHOD(TestParadigmContainSequenceSpace)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
+			ParadigmContainSequence p(text, " ");
+			Assert::AreEqual(p.number_of_words(), (int)0);
+		}
+
+		TEST_METHOD(TestParadigmContainSequenceEmpty)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
+			ParadigmContainSequence p(text, "");
+			Assert::AreEqual(p.number_of_words(), (int)0);
+		}
+
+		TEST_METHOD(TestParadigmContainSequenceEqual)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion  ";
+			std::string text1 = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
+			ParadigmContainSequence p(text, text1);
+			Assert::AreEqual(p.number_of_words(), (int)1);
+		}
+
+		TEST_METHOD(TestParadigmCustom1)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
+			ParadigmCustom p(text, "(\\w+)");
+			Assert::AreEqual(p.number_of_words(), (int)15);
+		}
+
+		TEST_METHOD(TestParadigmCustom2)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
+			ParadigmCustom p(text, "(\\w+){3}");
+			Assert::AreEqual(p.number_of_words(), (int)11);
+		}
+
+		TEST_METHOD(TestParadigmCustom3)
+		{
+			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
+			ParadigmCustom p(text, "(\\w+){6}");
+			Assert::AreEqual(p.number_of_words(), (int)3);
+		}
+
+		TEST_METHOD(TestDescribeFilters)
+		{
+			std::pair<char, std::string> a1 = { 2, "3" };
+			std::pair<char, std::string> a2 = { 5, "rura" };
+			std::vector <std::pair<char, std::string>> filters = { a1, a2 };
+			std::vector <std::string> description = describe_filters(filters);
+			std::vector <std::string> expected = { "Length shorter than: 3", "End with sequence: rura" };
+
+			bool out;
+			description == expected ? out = true : out = false;
+			Assert::AreEqual(out, true);
+		}
 	};
 
 
