@@ -15,15 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="analyzer.cpp">
+    <ClCompile Include="Text Analizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Text Analizer.cpp">
+    <ClCompile Include="paradigm_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="paradigms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="analyzer.h">
+    <ClInclude Include="paradigms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="paradigm_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

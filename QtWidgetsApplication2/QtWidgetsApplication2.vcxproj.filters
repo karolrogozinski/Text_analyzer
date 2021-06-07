@@ -46,10 +46,13 @@
     <ClCompile Include="DialogButtonBottom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Text Analizer\analyzer.cpp">
+    <ClCompile Include="remove_filters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="remove_filters.cpp">
+    <ClCompile Include="..\Text Analizer\paradigms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Text Analizer\paradigm_functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -92,13 +92,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Text Analizer\paradigms.cpp" />
+    <ClCompile Include="..\Text Analizer\paradigm_functions.cpp" />
     <ClCompile Include="remove_filters.cpp" />
     <QtRcc Include="QtWidgetsApplication2.qrc" />
     <QtRcc Include="Resource.qrc" />
     <QtUic Include="DialogButtonBottom.ui" />
     <QtUic Include="QtWidgetsApplication2.ui" />
     <QtMoc Include="QtWidgetsApplication2.h" />
-    <ClCompile Include="..\Text Analizer\analyzer.cpp" />
     <ClCompile Include="DialogButtonBottom.cpp" />
     <ClCompile Include="QtWidgetsApplication2.cpp" />
     <ClCompile Include="main.cpp" />

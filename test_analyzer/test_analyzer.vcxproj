@@ -156,11 +156,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Text Analizer\analyzer.cpp" />
+    <ClCompile Include="..\Text Analizer\paradigms.cpp" />
+    <ClCompile Include="..\Text Analizer\paradigm_functions.cpp" />
     <ClCompile Include="test_analyzer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Text Analizer\analyzer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

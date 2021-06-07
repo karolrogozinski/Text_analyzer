@@ -1,5 +1,6 @@
 #include "QtWidgetsApplication2.h"
-#include "../Text Analizer/analyzer.h"
+#include "../Text Analizer/paradigms.h"
+#include "../Text Analizer/paradigm_functions.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <iostream>

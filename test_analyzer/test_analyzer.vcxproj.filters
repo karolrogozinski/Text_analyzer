@@ -18,13 +18,11 @@
     <ClCompile Include="test_analyzer.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="..\Text Analizer\analyzer.cpp">
+    <ClCompile Include="..\Text Analizer\paradigms.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Text Analizer\analyzer.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
+    <ClCompile Include="..\Text Analizer\paradigm_functions.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
