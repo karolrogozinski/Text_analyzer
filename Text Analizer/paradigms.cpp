@@ -216,7 +216,26 @@ std::vector <std::string> get_union(std::vector <std::string> words, std::vector
     return to_modify;
 }   
 
+//return vector of filters descriptions (strings)
+std::vector <std::string> describe_filters(std::vector <std::shared_ptr<IParadigm>> paradigms) {
+    std::vector <std::string> descriptions;
+    std::string des = "";
 
+    for (auto paradigm : paradigms) {
+        des += paradigm->_description;
+        des += paradigm->param;
+        descriptions.push_back(des);
+        des = "";
+    }
 
+    return descriptions;
+};
+
+//remove paradigm of given index (index in vector!) from vector
+std::vector <std::shared_ptr<IParadigm>> erease_paradigm(std::vector <std::shared_ptr<IParadigm>> paradigms, int index) {
+    int i = 0;
+    paradigms.erase(paradigms.begin() + index);
+    return paradigms;
+}
 
 

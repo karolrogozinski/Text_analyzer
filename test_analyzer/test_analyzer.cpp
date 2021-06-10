@@ -478,112 +478,62 @@ namespace testanalyzer
 
 			Assert::AreEqual(number, 8);
 		}
-//
-//		TEST_METHOD(TestEreaseParadigmOneElement)
-//		{
-//			std::pair <char, std::string> a1(4, "B");
-//			std::pair <char, std::string> a2(5, "n");
-//			std::pair <char, std::string> a3(3, "2");
-//			std::pair <char, std::string> a4(1, "2");
-//			std::pair <char, std::string> a5(0, "");
-//			std::vector< std::pair<char, std::string> > list = { a1, a2, a3, a4, a5 };
-//			int index = 3;
-//
-//			list = erease_paradigm(list, index);
-//
-//			std::vector< std::pair<char, std::string> > expected_list = {a1, a2, a4, a5};
-//			bool out;
-//
-//			list == expected_list ? out = true : out = false;
-//
-//			Assert::AreEqual(out, true);
-//		}
-//
-//		TEST_METHOD(TestEreaseParadigmTwoElements)
-//		{
-//			std::pair <char, std::string> a1(4, "B");
-//			std::pair <char, std::string> a2(5, "n");
-//			std::pair <char, std::string> a3(3, "2");
-//			std::pair <char, std::string> a4(1, "2");
-//			std::pair <char, std::string> a5(0, "");
-//			std::vector< std::pair<char, std::string> > list = { a1, a2, a4, a5 };
-//
-//			int index = 3;
-//			list = erease_paradigm(list, index);
-//			index = 4;
-//			list = erease_paradigm(list, index);
-//
-//			std::vector< std::pair<char, std::string> > expected_list = { a2, a4, a5 };
-//
-//			bool out;
-//			list == expected_list ? out = true : out = false;
-//
-//			Assert::AreEqual(out, true);
-//		}
-//
-//		TEST_METHOD(TestEreaseParadigmAllElements)
-//		{
-//			std::pair <char, std::string> a1(4, "B");
-//			std::pair <char, std::string> a2(5, "n");
-//			std::pair <char, std::string> a3(3, "2");
-//			std::pair <char, std::string> a4(1, "2");
-//			std::pair <char, std::string> a5(0, "");
-//			std::vector< std::pair<char, std::string> > list = { a1, a2, a4, a5 };
-//
-//			int index = 3;
-//			list = erease_paradigm(list, index);
-//			index = 4;
-//			list = erease_paradigm(list, index);
-//			index = 5;
-//			list = erease_paradigm(list, index);
-//			index = 0;
-//			list = erease_paradigm(list, index);
-//			index = 1;
-//			list = erease_paradigm(list, index);
-//
-//			std::vector< std::pair<char, std::string> > expected_list = {};
-//
-//			bool out;
-//			list == expected_list ? out = true : out = false;
-//
-//			Assert::AreEqual(out, true);
-//		}
-//
-//		//TEST_METHOD(TestOutFunctionPure)
-//		//{
-//		//	std::stringstream output;
-//		//	std::string expected_output, given_output;
-//		//	std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
-//		//	ParadigmWords para(text);
-//
-//		//	output << para;
-//		//	given_output = output.str();
-//		//	expected_output = "Words' number is 15.";
-//		//	//std::vector< std::pair<char, std::string> > list = { a1, a2, a3 };
-//		//	//int number = ParadigmUnion(text, list);
-//
-//		//	Assert::AreEqual(given_output, expected_output);
-//		//}
-//
-//
 
-//
-//		TEST_METHOD(TestDescribeFilters)
-//		{
-//			std::pair<char, std::string> a1 = { 2, "3" };
-//			std::pair<char, std::string> a2 = { 5, "rura" };
-//			std::vector <std::pair<char, std::string>> filters = { a1, a2 };
-//			std::vector <std::string> description = describe_filters(filters);
-//			std::vector <std::string> expected = { "Length shorter than: 3", "End with sequence: rura" };
-//
-//			bool out;
-//			description == expected ? out = true : out = false;
-//			Assert::AreEqual(out, true);
-//		}
+		TEST_METHOD(TestDescribeFilters)
+		{
+			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
+			std::shared_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
+			std::shared_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
+			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			std::vector <std::string> description = describe_filters(paradigms);
+			std::vector <std::string> expected = { "Start with sequence: B", "End with sequence: n", "Length equal: 2" };
+
+			bool out;
+			description == expected ? out = true : out = false;
+			Assert::AreEqual(out, true);
+		}
+
+ 
+		TEST_METHOD(TestEreaseParadigmOneElement)
+		{
+			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
+			std::shared_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
+			std::shared_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
+			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			int index = 1;
+
+			paradigms = erease_paradigm(paradigms, index);
+
+			std::vector <std::shared_ptr<IParadigm>> expected_list = {p, p2};
+			bool out;
+
+			paradigms == expected_list ? out = true : out = false;
+
+			Assert::AreEqual(out, true);
+		}
+
+
+		TEST_METHOD(TestEreaseParadigmAllElements)
+		{
+			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
+			std::shared_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
+			std::shared_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
+			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+
+			std::vector <int> indexes = { 2, 1, 0 };
+			for (auto index : indexes) {
+				paradigms = erease_paradigm(paradigms, index);
+			}
+
+
+			std::vector <std::shared_ptr<IParadigm>> expected_list = {};
+
+			bool out;
+			paradigms == expected_list ? out = true : out = false;
+
+			Assert::AreEqual(out, true);
+		}
 	 };
-//
-//
-//
-//
+
 
 }
