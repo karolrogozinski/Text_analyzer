@@ -24,7 +24,7 @@ public slots:
 
 private:
     Ui::MainWindow ui;
-    std::vector <std::shared_ptr<IParadigm>> filters;
-    std::vector <std::shared_ptr<IParadigm>> union_filters;
+    std::vector <std::unique_ptr<IParadigm>> filters;
+    std::vector <std::unique_ptr<IParadigm>> union_filters;
     std::vector <std::string> current_text;
 };

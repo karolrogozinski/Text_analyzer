@@ -79,8 +79,8 @@ public:
 	void find_pattern(std::vector <std::string> &words);
 };
 
-void erease_paradigm(std::vector <std::shared_ptr<IParadigm>>& paradigms, int index);
+void erease_paradigm(std::vector <std::unique_ptr<IParadigm>>& paradigms, int index);
 void remove_from_vector(std::vector <std::string> &words1, const std::vector <std::string> &words2);
-std::vector <std::string> get_intersection(std::vector <std::string> words, const std::vector <std::shared_ptr<IParadigm>> &paradigms);
-std::vector <std::string> get_union(std::vector <std::string> &words, const std::vector <std::shared_ptr<IParadigm>> &paradigms);
-std::vector <std::string> describe_filters(const std::vector <std::shared_ptr<IParadigm>>& paradigms);
+std::vector <std::string> get_intersection(std::vector <std::string> words, const std::vector <std::unique_ptr<IParadigm>> &paradigms);
+std::vector <std::string> get_union(std::vector <std::string> &words, std::vector <std::unique_ptr<IParadigm>> &paradigms);
+std::vector <std::string> describe_filters(const std::vector <std::unique_ptr<IParadigm>>& paradigms);

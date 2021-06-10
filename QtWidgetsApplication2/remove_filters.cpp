@@ -4,20 +4,18 @@
 #include "../Text Analizer/paradigms.h"
 
 
-DialogRemove::DialogRemove(std::vector <std::shared_ptr<IParadigm>> filters_,
-						   std::vector <std::shared_ptr<IParadigm>> union_filters_,
-						   QWidget* parent) :
-						   QDialog(parent) {
+DialogRemove::DialogRemove(std::vector <std::unique_ptr<IParadigm>>& filters,
+						   std::vector <std::unique_ptr<IParadigm>>& union_filters,
+						   QWidget* parent) : QDialog(parent) {
 
 	ui.setupUi(this);
-	filters = filters_;
-	union_filters = union_filters_;
 
-	set_filtres();
+	set_filtres(filters, union_filters);
 };
 
 
-void DialogRemove::set_filtres() {
+void DialogRemove::set_filtres(std::vector <std::unique_ptr<IParadigm>>& filters,
+							   std::vector <std::unique_ptr<IParadigm>>& union_filters) {
 	if (!filters.empty()) {
 		std::vector <std::string> desc = describe_filters(filters);
 		for (auto a : desc) {

@@ -53,6 +53,7 @@ std::vector <std::string> split_string(const std::string& text) {
 };
 
 
+// merge vector to string
 std::string to_str(const std::vector <std::string>& text) {
     std::string s_text = "";
 

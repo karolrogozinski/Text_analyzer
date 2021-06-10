@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 
+// read text from file
 void MainWindow::readFile() {
     QString file_name = QFileDialog::getOpenFileName(this, "Choose a file", "C://", tr("Image Files (*.txt)"));
     if (file_name != "") {
@@ -38,68 +39,71 @@ void MainWindow::readFile() {
 };
 
 
+// add new filters
 void MainWindow::newFilters() {
     Dialog dialog;
     dialog.exec();
     if (!dialog.result()) { return; }
+    // for intersection
     if (dialog.typeFilters() == 0) {
         if (dialog.checkBox1()) {
-            std::shared_ptr<IParadigm> p(new ParadigmEqualLength(std::to_string(dialog.valueFilter1())));
-            filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmEqualLength>(std::to_string(dialog.valueFilter1()));
+            filters.push_back(std::move(p));
         };
         if (dialog.checkBox2()) {
-            std::shared_ptr<IParadigm> p(new ParadigmLongerThan(std::to_string(dialog.valueFilter2())));
-            filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmLongerThan>(std::to_string(dialog.valueFilter2()));
+            filters.push_back(std::move(p));
         };
         if (dialog.checkBox3()) {
-            std::shared_ptr<IParadigm> p(new ParadigmShorterThan(std::to_string(dialog.valueFilter3())));
-            filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmShorterThan>(std::to_string(dialog.valueFilter3()));
+            filters.push_back(std::move(p));
         };
         if (dialog.checkBox4()) {
-            std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence(dialog.valueFilter4()));
-            filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmStartsWithSequence>(dialog.valueFilter4());
+            filters.push_back(std::move(p));
         };
         if (dialog.checkBox5()) {
-            std::shared_ptr<IParadigm> p(new ParadigmEndsOnSequence(dialog.valueFilter5()));
-            filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmEndsOnSequence>(dialog.valueFilter5());
+            filters.push_back(std::move(p));
         };
         if (dialog.checkBox6()) {
-            std::shared_ptr<IParadigm> p(new ParadigmContainSequence(dialog.valueFilter6()));
-            filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmContainSequence>(dialog.valueFilter6());
+            filters.push_back(std::move(p));
         };
         if (dialog.checkBox7()) {
-            std::shared_ptr<IParadigm> p(new ParadigmCustom(dialog.valueFilter7()));
-            filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmCustom>(dialog.valueFilter7());
+            filters.push_back(std::move(p));
         };
     };
+    // for union
     if (dialog.typeFilters() == 1) {
         if (dialog.checkBox1()) {
-            std::shared_ptr<IParadigm> p(new ParadigmEqualLength(std::to_string(dialog.valueFilter1())));
-            union_filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmEqualLength>(std::to_string(dialog.valueFilter1()));
+            union_filters.push_back(std::move(p));
         };
         if (dialog.checkBox2()) {
-            std::shared_ptr<IParadigm> p(new ParadigmLongerThan(std::to_string(dialog.valueFilter2())));
-            union_filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmLongerThan>(std::to_string(dialog.valueFilter2()));
+            union_filters.push_back(std::move(p));
         };
         if (dialog.checkBox3()) {
-            std::shared_ptr<IParadigm> p(new ParadigmShorterThan(std::to_string(dialog.valueFilter3())));
-            union_filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmShorterThan>(std::to_string(dialog.valueFilter3()));
+            union_filters.push_back(std::move(p));
         };
         if (dialog.checkBox4()) {
-            std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence(dialog.valueFilter4()));
-            union_filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmStartsWithSequence>(dialog.valueFilter4());
+            union_filters.push_back(std::move(p));
         };
         if (dialog.checkBox5()) {
-            std::shared_ptr<IParadigm> p(new ParadigmEndsOnSequence(dialog.valueFilter5()));
-            union_filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmEndsOnSequence>(dialog.valueFilter5());
+            union_filters.push_back(std::move(p));
         };
         if (dialog.checkBox6()) {
-            std::shared_ptr<IParadigm> p(new ParadigmContainSequence(dialog.valueFilter6()));
-            union_filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmContainSequence>(dialog.valueFilter6());
+            union_filters.push_back(std::move(p));
         };
         if (dialog.checkBox7()) {
-            std::shared_ptr<IParadigm> p(new ParadigmCustom(dialog.valueFilter7()));
-            union_filters.push_back(p);
+            std::unique_ptr<IParadigm> p = make_unique <ParadigmCustom>(dialog.valueFilter7());
+            union_filters.push_back(std::move(p));
         };
     };
 
@@ -107,6 +111,7 @@ void MainWindow::newFilters() {
 };
 
 
+// remove filters
 void MainWindow::removeFilters() {
     DialogRemove dialog(filters, union_filters);
     dialog.exec();
@@ -126,6 +131,7 @@ void MainWindow::removeFilters() {
 };
 
 
+// run text analyze with chosen filters
 void MainWindow::runAnalyze() {
     if (current_text.empty()) {
         QMessageBox msgBox;
@@ -161,6 +167,7 @@ void MainWindow::runAnalyze() {
 };
 
 
+// set informations about chosen filters
 void MainWindow::set_filters_description() {
     std::string text = "";
 

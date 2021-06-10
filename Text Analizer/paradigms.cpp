@@ -149,9 +149,9 @@ void ParadigmCustom::find_pattern(std::vector <std::string> &words) {
 
 //return vector of words made of intersections of paradigms
 std::vector <std::string> get_intersection(std::vector <std::string> words,
-                                           const std::vector <std::shared_ptr<IParadigm>> &paradigms) {
+                                           const std::vector <std::unique_ptr<IParadigm>> &paradigms) {
 
-    for (auto ptr : paradigms) {
+    for (auto &ptr : paradigms) {
         ptr->find_pattern(words);
     }
 
@@ -176,36 +176,47 @@ void remove_from_vector(std::vector <std::string> &words1, const std::vector <st
 
 //return vector of words in union of given paradigms
 std::vector <std::string> get_union(std::vector <std::string> &words, 
-                                    const std::vector <std::shared_ptr<IParadigm>> &paradigms) {
+                                    std::vector <std::unique_ptr<IParadigm>> &paradigms) {
 
     std::vector <std::string> to_modify;
     int first = 0; int second = 1;
 
     if (paradigms.size() < 2) { return get_intersection(words, paradigms); };
 
-    std::shared_ptr<IParadigm> first_par = paradigms[first];
-    std::shared_ptr<IParadigm> second_par = paradigms[second];
-    std::vector <std::shared_ptr<IParadigm>> curr_vec = { first_par, second_par };
+    std::vector <std::unique_ptr<IParadigm>> curr_vec;
+    curr_vec.push_back(std::move(paradigms[first]));
+    curr_vec.push_back(std::move(paradigms[second]));
 
     std::vector <std::string> union_words = get_intersection(words, curr_vec); //intersection of A and B
 
-    curr_vec = { first_par };
+    std::unique_ptr<IParadigm> secondp = std::move(curr_vec[1]);
+    curr_vec.resize(1);
+
     std::vector <std::string> first_words = get_intersection(words, curr_vec); //get A
     remove_from_vector(first_words, union_words); //get A wo intersection
 
-    curr_vec = { second_par };
+    std::unique_ptr<IParadigm> firstp = std::move(curr_vec[0]);
+    curr_vec.clear();
+    curr_vec.push_back(std::move(secondp));
+
     std::vector <std::string> second_words = get_intersection(words, curr_vec); //get B
     for (auto word : second_words) {
         first_words.push_back(word);                        //A (wo intersection) + B
     }
 
+    secondp = std::move(curr_vec[0]);
+    curr_vec.clear();
+
     to_modify = first_words;
     int len = paradigms.size() - 2;
     second = 2;
 
+    std::vector <std::unique_ptr<IParadigm>> replace;
+    replace.push_back(std::move(firstp));
+    replace.push_back(std::move(secondp));
+
     while (len > 0) {
-        second_par = paradigms[second]; //3rd pattern
-        curr_vec = { second_par };
+        curr_vec.push_back(std::move(paradigms[second]));
         union_words = get_intersection(to_modify, curr_vec); //next intersection
         remove_from_vector(to_modify, union_words);
 
@@ -213,18 +224,25 @@ std::vector <std::string> get_union(std::vector <std::string> &words,
         for (auto word : second_words) {
             to_modify.push_back(word); //add C, and so on
         }
-        len -= 1; second += 1;
-    }
+        len--; second++;
+        replace.push_back(std::move(curr_vec[0]));
+        curr_vec.clear();
+    };
+
+    paradigms.clear();
+    for (auto& a : replace) {
+        paradigms.push_back(std::move(a));
+    };
 
     return to_modify;
 }   
 
 //return vector of filters descriptions (strings)
-std::vector <std::string> describe_filters(const std::vector <std::shared_ptr<IParadigm>> &paradigms) {
+std::vector <std::string> describe_filters(const std::vector <std::unique_ptr<IParadigm>> &paradigms) {
     std::vector <std::string> descriptions;
     std::string des = "";
 
-    for (auto paradigm : paradigms) {
+    for (auto &paradigm : paradigms) {
         des += paradigm->get_description();
         des += paradigm->get_param();
         descriptions.push_back(des);
@@ -235,9 +253,7 @@ std::vector <std::string> describe_filters(const std::vector <std::shared_ptr<IP
 };
 
 //remove paradigm of given index (index in vector!) from vector
-void erease_paradigm(std::vector <std::shared_ptr<IParadigm>> &paradigms, int index) {
+void erease_paradigm(std::vector <std::unique_ptr<IParadigm>> &paradigms, int index) {
     int i = 0;
     paradigms.erase(paradigms.begin() + index);
 }
-
-

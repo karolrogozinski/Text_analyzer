@@ -3,15 +3,13 @@
 #include "ui_remove_filters.h"
 #include <vector>
 #include <memory>
+#include <QtWidgets/QMainWindow>
 #include "../Text Analizer/paradigms.h"
 
 class DialogRemove : public QDialog {
 public:
-	std::vector <std::shared_ptr<IParadigm>> filters;
-	std::vector <std::shared_ptr<IParadigm>> union_filters;
-
-	DialogRemove(std::vector <std::shared_ptr<IParadigm>> filters,
-				 std::vector <std::shared_ptr<IParadigm>> union_filters,
+	DialogRemove(std::vector <std::unique_ptr<IParadigm>>& filters,
+				 std::vector <std::unique_ptr<IParadigm>>& union_filters,
 				 QWidget* parent = Q_NULLPTR);
 
 	bool checkBox() { return ui.checkBox->checkState(); };
@@ -19,7 +17,8 @@ public:
 	bool checkBox3() { return ui.checkBox_3->checkState(); };
 	int typeFilters() { return ui.comboBox->currentIndex(); }
 	int typeFilters2() { return ui.comboBox_2->currentIndex(); }
-	void set_filtres();
+	void set_filtres(std::vector <std::unique_ptr<IParadigm>>& filters,
+					 std::vector <std::unique_ptr<IParadigm>>& union_filters);
 
 private:
 	Ui::DialogRemove ui;
