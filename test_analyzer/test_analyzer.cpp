@@ -393,9 +393,11 @@ namespace testanalyzer
 		{
 			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
 			std::vector <std::string> words = split_string(text);
-			std::shared_ptr<IParadigm> p(new ParadigmLongerThan("2"));
-			std::shared_ptr<IParadigm> p1(new ParadigmShorterThan("5"));
-			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1 };
+			std::unique_ptr <IParadigm> p(new ParadigmLongerThan("2"));
+			std::unique_ptr <IParadigm> p1(new ParadigmShorterThan("5"));
+			std::vector <std::unique_ptr<IParadigm>> paradigms;
+			paradigms.push_back(std::move(p));
+			paradigms.push_back(std::move(p1));
 			words = get_intersection(words, paradigms);
 			ParadigmWords p2;
 			int number = p2.number_of_words(words);
@@ -406,10 +408,13 @@ namespace testanalyzer
 		{
 			std::string text = "By the waters of Babylon, there we sat down and wept, when we remembered Zion ";
 			std::vector <std::string> words = split_string(text);
-			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("w"));
-			std::shared_ptr<IParadigm> p1(new ParadigmLongerThan("2"));
-			std::shared_ptr<IParadigm> p2(new ParadigmShorterThan("6"));
-			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			std::unique_ptr<IParadigm> p(new ParadigmStartsWithSequence("w"));
+			std::unique_ptr<IParadigm> p1(new ParadigmLongerThan("2"));
+			std::unique_ptr<IParadigm> p2(new ParadigmShorterThan("6"));
+			std::vector <std::unique_ptr<IParadigm>> paradigms;
+			paradigms.push_back(std::move(p));
+			paradigms.push_back(std::move(p1));
+			paradigms.push_back(std::move(p2));
 			words = get_intersection(words, paradigms);
 			ParadigmWords P;
 			int number = P.number_of_words(words);
@@ -423,10 +428,13 @@ namespace testanalyzer
 			std::vector <std::string> words = split_string(text);
 			std::pair <char, std::string> a1(1, "2");
 			std::pair <char, std::string> a2(2, "6");
-			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("th"));
-			std::shared_ptr<IParadigm> p1(new ParadigmEndsOnSequence("e"));
-			std::shared_ptr<IParadigm> p2(new ParadigmContainSequence("r"));
-			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			std::unique_ptr<IParadigm> p(new ParadigmStartsWithSequence("th"));
+			std::unique_ptr<IParadigm> p1(new ParadigmEndsOnSequence("e"));
+			std::unique_ptr<IParadigm> p2(new ParadigmContainSequence("r"));
+			std::vector <std::unique_ptr<IParadigm>> paradigms;
+			paradigms.push_back(std::move(p));
+			paradigms.push_back(std::move(p1));
+			paradigms.push_back(std::move(p2));
 			words = get_intersection(words, paradigms);
 			ParadigmWords P;
 			int number = P.number_of_words(words);
@@ -441,10 +449,13 @@ namespace testanalyzer
 			std::pair <char, std::string> a1(4, "w");
 			std::pair <char, std::string> a2(1, "2");
 			std::pair <char, std::string> a3(2, "6");
-			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("w"));
-			std::shared_ptr<IParadigm> p1(new ParadigmLongerThan("2"));
-			std::shared_ptr<IParadigm> p2(new ParadigmShorterThan("6"));
-			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			std::unique_ptr<IParadigm> p(new ParadigmStartsWithSequence("w"));
+			std::unique_ptr<IParadigm> p1(new ParadigmLongerThan("2"));
+			std::unique_ptr<IParadigm> p2(new ParadigmShorterThan("6"));
+			std::vector <std::unique_ptr<IParadigm>> paradigms;
+			paradigms.push_back(std::move(p));
+			paradigms.push_back(std::move(p1));
+			paradigms.push_back(std::move(p2));
 			words = get_union(words, paradigms);
 			ParadigmWords P;
 			int number = P.number_of_words(words);
@@ -456,10 +467,13 @@ namespace testanalyzer
 		{
 			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
 			std::vector <std::string> words = split_string(text);
-			std::shared_ptr<IParadigm> p(new ParadigmLongerThan("5"));
-			std::shared_ptr<IParadigm> p1(new ParadigmShorterThan("3"));
-			std::shared_ptr<IParadigm> p2(new ParadigmEqualLength("4"));
-			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			std::unique_ptr<IParadigm> p(new ParadigmLongerThan("5"));
+			std::unique_ptr<IParadigm> p1(new ParadigmShorterThan("3"));
+			std::unique_ptr<IParadigm> p2(new ParadigmEqualLength("4"));
+			std::vector <std::unique_ptr<IParadigm>> paradigms;
+			paradigms.push_back(std::move(p));
+			paradigms.push_back(std::move(p1));
+			paradigms.push_back(std::move(p2));
 			words = get_union(words, paradigms);
 			ParadigmWords P;
 			int number = P.number_of_words(words);
@@ -471,10 +485,13 @@ namespace testanalyzer
 		{
 			std::string text = "By the waters of Babylon there we sat down and wept when we remembered Zion ";
 			std::vector <std::string> words = split_string(text);
-			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
-			std::shared_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
-			std::shared_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
-			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			std::unique_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
+			std::unique_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
+			std::unique_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
+			std::vector <std::unique_ptr<IParadigm>> paradigms;
+			paradigms.push_back(std::move(p));
+			paradigms.push_back(std::move(p1));
+			paradigms.push_back(std::move(p2));
 			words = get_union(words, paradigms);
 			ParadigmWords P;
 			int number = P.number_of_words(words);
@@ -484,10 +501,13 @@ namespace testanalyzer
 
 		TEST_METHOD(TestDescribeFilters)
 		{
-			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
-			std::shared_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
-			std::shared_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
-			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			std::unique_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
+			std::unique_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
+			std::unique_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
+			std::vector <std::unique_ptr<IParadigm>> paradigms;
+			paradigms.push_back(std::move(p));
+			paradigms.push_back(std::move(p1));
+			paradigms.push_back(std::move(p2));
 			std::vector <std::string> description = describe_filters(paradigms);
 			std::vector <std::string> expected = { "Start with sequence: B", "End with sequence: n", "Length equal: 2" };
 
@@ -499,29 +519,46 @@ namespace testanalyzer
  
 		TEST_METHOD(TestEreaseParadigmOneElement)
 		{
-			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
-			std::shared_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
-			std::shared_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
-			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			std::unique_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
+			std::unique_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
+			std::unique_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
+			std::vector <std::unique_ptr<IParadigm>> paradigms;
+			paradigms.push_back(std::move(p));
+			paradigms.push_back(std::move(p1));
+			paradigms.push_back(std::move(p2));
 			int index = 1;
 
 			erease_paradigm(paradigms, index);
 
-			std::vector <std::shared_ptr<IParadigm>> expected_list = {p, p2};
-			bool out;
+			//std::vector <std::unique_ptr<IParadigm>> expected_list;
+			//std::unique_ptr<IParadigm> p3(new ParadigmStartsWithSequence("B"));
+			//std::unique_ptr<IParadigm> p4(new ParadigmEqualLength("2"));
+			//expected_list.push_back(std::move(p3));
+			//expected_list.push_back(std::move(p4));
+			//bool out;
+			
+			std::unique_ptr <IParadigm> ptr1 = std::move(paradigms[0]);
+			std::unique_ptr <IParadigm> ptr2 = std::move(paradigms[1]);
 
-			paradigms == expected_list ? out = true : out = false;
+			std::string param1 = ptr1->get_param();
+			std::string param2 = ptr2->get_param();
+			std::string to_compare1 = "B";
+			std::string to_compare2 = "2";
+			Assert::AreEqual(param1, to_compare1);
+			Assert::AreEqual(param2, to_compare2);
 
-			Assert::AreEqual(out, true);
 		}
 
 
 		TEST_METHOD(TestEreaseParadigmAllElements)
 		{
-			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
-			std::shared_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
-			std::shared_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
-			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
+			std::unique_ptr<IParadigm> p(new ParadigmStartsWithSequence("B"));
+			std::unique_ptr<IParadigm> p1(new ParadigmEndsOnSequence("n"));
+			std::unique_ptr<IParadigm> p2(new ParadigmEqualLength("2"));
+			std::vector <std::unique_ptr<IParadigm>> paradigms;
+			paradigms.push_back(std::move(p));
+			paradigms.push_back(std::move(p1));
+			paradigms.push_back(std::move(p2));
 
 			std::vector <int> indexes = { 2, 1, 0 };
 			for (auto index : indexes) {
@@ -529,7 +566,7 @@ namespace testanalyzer
 			}
 
 
-			std::vector <std::shared_ptr<IParadigm>> expected_list = {};
+			std::vector <std::unique_ptr<IParadigm>> expected_list = {};
 
 			bool out;
 			paradigms == expected_list ? out = true : out = false;
