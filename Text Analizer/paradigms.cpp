@@ -12,57 +12,57 @@
 
 
 //return vector of words having as many chars as given int
-std::vector <std::string> ParadigmLongerThan::find_pattern(std::vector <std::string> words) {
+void ParadigmLongerThan::find_pattern(std::vector <std::string> &words) {
     int i = 0;
     int length = std::stoi(param);
     for (auto word : words) {
         if (word.size() <= length) {
             words.erase(words.begin() + i);
-            return find_pattern(words);
+            find_pattern(words);
+            break;
         }
         ++i;
     }
-    return words;
 };
 
 
 //return vector of words being shorter than given int
-std::vector <std::string> ParadigmShorterThan::find_pattern(std::vector <std::string> words) {
+void ParadigmShorterThan::find_pattern(std::vector <std::string> &words) {
     int i = 0;
     int length = std::stoi(param);
     for (auto word : words) {
         if (word.size() >= length) {
             words.erase(words.begin() + i);
-            return find_pattern(words);
+            find_pattern(words);
+            break;
         }
         ++i;
     }
-    return words;
 };
 
 
 //return vector of words being equal length to given int
-std::vector <std::string> ParadigmEqualLength::find_pattern(std::vector <std::string> words) {
+void ParadigmEqualLength::find_pattern(std::vector <std::string> &words) {
     int i = 0;
     int length = std::stoi(param);
     for (auto word : words) {
         if (word.size() != length) {
             words.erase(words.begin() + i);
-            return find_pattern(words);
+            find_pattern(words);
+            break;
         }
         ++i;
     }
-    return words;
 };
 
 //return vector of words starting with given sequence
-std::vector <std::string> ParadigmStartsWithSequence::find_pattern(std::vector <std::string> words) {
+void ParadigmStartsWithSequence::find_pattern(std::vector <std::string> &words) {
     if (param.empty()) {
         if (words.empty()) {
-            return words;
+            return;
         }
         words.clear();
-        return words;
+        return;
     }
 
     int n = 0;
@@ -70,21 +70,21 @@ std::vector <std::string> ParadigmStartsWithSequence::find_pattern(std::vector <
         bool result = not word.starts_with(param);
         if (result) {
             words.erase(words.begin() + n);
-            return find_pattern(words);
+            find_pattern(words);
+            break;
         }
         ++n;
     }
-    return words;
 };
 
 //return vector of words which ends on given sequence
-std::vector <std::string> ParadigmEndsOnSequence::find_pattern(std::vector <std::string> words) {
+void ParadigmEndsOnSequence::find_pattern(std::vector <std::string> &words) {
     if (param.empty()) {
         if (words.empty()) {
-            return words;
+            return;
         }
         words.clear();
-        return words;
+        return;
     }
 
     int n = 0;
@@ -92,40 +92,40 @@ std::vector <std::string> ParadigmEndsOnSequence::find_pattern(std::vector <std:
         bool result = not word.ends_with(param);
         if (result) {
             words.erase(words.begin() + n);
-            return find_pattern(words);
+            find_pattern(words);
+            break;
         }
         ++n;
     }
-    return words;
 }
 
 //return vector of words which contains given sequence
-std::vector <std::string> ParadigmContainSequence::find_pattern(std::vector <std::string> words){
+void ParadigmContainSequence::find_pattern(std::vector <std::string> &words){
     if (param.empty() || words.empty()) {
         words.clear();
-        return words;
+        return;
     }  //to correct for more spaces
     
     int n = 0;
     for (auto word : words) {
         if (word.find(" ") != std::string::npos) {
             words.clear();
-            return words;
+            return;
         }
         if (word.find(param) == std::string::npos) {
             words.erase(words.begin() + n);
-            return find_pattern(words);
+            find_pattern(words);
+            break;
         }
         ++n;
     }
-    return words;
 };
 
 //return vector of words containing given regex
-std::vector <std::string> ParadigmCustom::find_pattern(std::vector <std::string> words) {
+void ParadigmCustom::find_pattern(std::vector <std::string> &words) {
     if (param.empty() || words.empty()) {
         words.clear();
-        return words;
+        return;
     }
 
     std::regex word_regex(param);
@@ -139,41 +139,44 @@ std::vector <std::string> ParadigmCustom::find_pattern(std::vector <std::string>
         };
         if (flag){
             words.erase(words.begin() + n);
-            return find_pattern(words);
+            find_pattern(words);
+            break;
         }
         flag = true;
         ++n;
     }
-    return words;
 };
 
 //return vector of words made of intersections of paradigms
-std::vector <std::string> get_intersection(std::vector <std::string> words, std::vector <std::shared_ptr<IParadigm>> paradigms) {
+std::vector <std::string> get_intersection(std::vector <std::string> words,
+                                           const std::vector <std::shared_ptr<IParadigm>> &paradigms) {
 
     for (auto ptr : paradigms) {
-        words = ptr->find_pattern(words);
+        ptr->find_pattern(words);
     }
 
     return words;
 }
 
 //remove elements of words2 existing in words1 from words1
-std::vector <std::string> remove_from_vector(std::vector <std::string> words1, std::vector <std::string> words2) {
+void remove_from_vector(std::vector <std::string> &words1, const std::vector <std::string> &words2) {
     int n = 0;
     for (auto word1 : words1) {
         for (auto word2 : words2) {
             if (word1 == word2) {
                 words1.erase(words1.begin() + n);
-                return remove_from_vector(words1, words2);
+                remove_from_vector(words1, words2);
+                break;
             }                                               
         }                                                   
         ++n;                                                
     }
-    return words1;
 }
 
+
 //return vector of words in union of given paradigms
-std::vector <std::string> get_union(std::vector <std::string> words, std::vector <std::shared_ptr<IParadigm>> paradigms) {
+std::vector <std::string> get_union(std::vector <std::string> &words, 
+                                    const std::vector <std::shared_ptr<IParadigm>> &paradigms) {
 
     std::vector <std::string> to_modify;
     int first = 0; int second = 1;
@@ -188,7 +191,7 @@ std::vector <std::string> get_union(std::vector <std::string> words, std::vector
 
     curr_vec = { first_par };
     std::vector <std::string> first_words = get_intersection(words, curr_vec); //get A
-    first_words = remove_from_vector(first_words, union_words); //get A wo intersection
+    remove_from_vector(first_words, union_words); //get A wo intersection
 
     curr_vec = { second_par };
     std::vector <std::string> second_words = get_intersection(words, curr_vec); //get B
@@ -204,7 +207,7 @@ std::vector <std::string> get_union(std::vector <std::string> words, std::vector
         second_par = paradigms[second]; //3rd pattern
         curr_vec = { second_par };
         union_words = get_intersection(to_modify, curr_vec); //next intersection
-        to_modify = remove_from_vector(to_modify, union_words);
+        remove_from_vector(to_modify, union_words);
 
         second_words = get_intersection(words, curr_vec); //get C
         for (auto word : second_words) {
@@ -217,7 +220,7 @@ std::vector <std::string> get_union(std::vector <std::string> words, std::vector
 }   
 
 //return vector of filters descriptions (strings)
-std::vector <std::string> describe_filters(std::vector <std::shared_ptr<IParadigm>> paradigms) {
+std::vector <std::string> describe_filters(const std::vector <std::shared_ptr<IParadigm>> &paradigms) {
     std::vector <std::string> descriptions;
     std::string des = "";
 
@@ -232,10 +235,9 @@ std::vector <std::string> describe_filters(std::vector <std::shared_ptr<IParadig
 };
 
 //remove paradigm of given index (index in vector!) from vector
-std::vector <std::shared_ptr<IParadigm>> erease_paradigm(std::vector <std::shared_ptr<IParadigm>> paradigms, int index) {
+void erease_paradigm(std::vector <std::shared_ptr<IParadigm>> &paradigms, int index) {
     int i = 0;
     paradigms.erase(paradigms.begin() + index);
-    return paradigms;
 }
 
 

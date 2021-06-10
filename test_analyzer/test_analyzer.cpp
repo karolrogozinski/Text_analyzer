@@ -68,8 +68,9 @@ namespace testanalyzer
 			std::string word = "3";
 			ParadigmLongerThan p(word);
 			ParadigmWords p2;
+			p.find_pattern(words);
 
-			int number = p2.number_of_words(p.find_pattern(words));
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 8);
 		}
@@ -81,8 +82,9 @@ namespace testanalyzer
 
 			ParadigmLongerThan p("3");
 			ParadigmWords p2;
+			p.find_pattern(words);
 
-			int number = p2.number_of_words(p.find_pattern(words));
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 0);
 		}
@@ -94,8 +96,8 @@ namespace testanalyzer
 
 			ParadigmLongerThan p("-10");
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 0);
 		}
@@ -108,8 +110,8 @@ namespace testanalyzer
 
 			ParadigmLongerThan p("2");
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 4);
 		}
@@ -123,8 +125,8 @@ namespace testanalyzer
 
 			ParadigmShorterThan p("4");
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 7);
 		}
@@ -138,8 +140,8 @@ namespace testanalyzer
 
 			ParadigmShorterThan p("-10");
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 15);
 		}
@@ -152,8 +154,8 @@ namespace testanalyzer
 
 			ParadigmEqualLength p("2");
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 4);
 		}
@@ -166,8 +168,8 @@ namespace testanalyzer
 
 			ParadigmEqualLength p("-2");
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 0);
 		}
@@ -181,8 +183,8 @@ namespace testanalyzer
 			std::string letter = "B";
 			ParadigmStartsWithSequence p(letter);
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 			Assert::AreEqual(number, 2);
 		}
 
@@ -195,8 +197,8 @@ namespace testanalyzer
 			std::string letter = "";
 			ParadigmStartsWithSequence p(letter);
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 			Assert::AreEqual(number, 0);
 		}
 
@@ -209,8 +211,8 @@ namespace testanalyzer
 			std::string letter = "ylon";
 			ParadigmStartsWithSequence p(letter);
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 0);
 		}
@@ -224,8 +226,8 @@ namespace testanalyzer
 			std::string letter = "e";
 			ParadigmStartsWithSequence p(letter);
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 0);
 		}
@@ -239,8 +241,8 @@ namespace testanalyzer
 			std::string letter = "wep";
 			ParadigmStartsWithSequence p(letter);
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 1);
 		}
@@ -254,8 +256,8 @@ namespace testanalyzer
 			std::string letter = "e";
 			ParadigmEndsOnSequence p(letter);
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 4);
 		}
@@ -269,8 +271,8 @@ namespace testanalyzer
 			std::string letter = "";
 			ParadigmEndsOnSequence p(letter);
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 0);
 		}
@@ -283,8 +285,8 @@ namespace testanalyzer
 			std::string letter = "eo";
 			ParadigmEndsOnSequence p(letter);
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words); 
 
 			Assert::AreEqual(number, 0);
 		}
@@ -298,8 +300,8 @@ namespace testanalyzer
 			std::string letter = "ers";
 			ParadigmEndsOnSequence p(letter);
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 2); //
 		}
@@ -312,7 +314,7 @@ namespace testanalyzer
 			ParadigmContainSequence p("e");
 			ParadigmWords p2;
 			
-			words = p.find_pattern(words);
+			p.find_pattern(words);
 			int number = p2.number_of_words(words);
 
 			Assert::AreEqual(number, 8);
@@ -325,8 +327,8 @@ namespace testanalyzer
 
 			ParadigmContainSequence p("and");
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 			Assert::AreEqual(number, 3);
 		}
 		
@@ -337,8 +339,8 @@ namespace testanalyzer
 
 			ParadigmContainSequence p("");
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 			Assert::AreEqual(number, 0);
 		}
 
@@ -349,8 +351,8 @@ namespace testanalyzer
 
 			ParadigmContainSequence p("  ");
 			ParadigmWords p2;
-
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 			Assert::AreEqual(number, 0);
 		}
 
@@ -360,7 +362,8 @@ namespace testanalyzer
 			std::vector <std::string> words = split_string(text);
 			ParadigmCustom p("(\\w+)");
 			ParadigmWords p2;
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 			Assert::AreEqual(number, 15);
 		}
 
@@ -370,7 +373,8 @@ namespace testanalyzer
 			std::vector <std::string> words = split_string(text);
 			ParadigmCustom p("(\\w+){3}");
 			ParadigmWords p2;
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 			Assert::AreEqual(number, 11);
 		}
 
@@ -380,7 +384,8 @@ namespace testanalyzer
 			std::vector <std::string> words = split_string(text);
 			ParadigmCustom p("(\\w+){6}");
 			ParadigmWords p2;
-			int number = p2.number_of_words(p.find_pattern(words));
+			p.find_pattern(words);
+			int number = p2.number_of_words(words);
 			Assert::AreEqual(number, 3);
 		}
 
@@ -401,8 +406,6 @@ namespace testanalyzer
 		{
 			std::string text = "By the waters of Babylon, there we sat down and wept, when we remembered Zion ";
 			std::vector <std::string> words = split_string(text);
-			std::pair <char, std::string> a1(1, "2");
-			std::pair <char, std::string> a2(2, "6");
 			std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence("w"));
 			std::shared_ptr<IParadigm> p1(new ParadigmLongerThan("2"));
 			std::shared_ptr<IParadigm> p2(new ParadigmShorterThan("6"));
@@ -502,7 +505,7 @@ namespace testanalyzer
 			std::vector <std::shared_ptr<IParadigm>> paradigms = { p, p1, p2 };
 			int index = 1;
 
-			paradigms = erease_paradigm(paradigms, index);
+			erease_paradigm(paradigms, index);
 
 			std::vector <std::shared_ptr<IParadigm>> expected_list = {p, p2};
 			bool out;
@@ -522,7 +525,7 @@ namespace testanalyzer
 
 			std::vector <int> indexes = { 2, 1, 0 };
 			for (auto index : indexes) {
-				paradigms = erease_paradigm(paradigms, index);
+				erease_paradigm(paradigms, index);
 			}
 
 

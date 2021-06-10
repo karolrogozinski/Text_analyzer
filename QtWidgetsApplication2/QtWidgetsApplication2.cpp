@@ -116,10 +116,10 @@ void MainWindow::removeFilters() {
         union_filters.clear();
     };
     if (dialog.checkBox3()) {
-        filters = erease_paradigm(filters, dialog.typeFilters());
+        erease_paradigm(filters, dialog.typeFilters());
     };
     if (dialog.checkBox2()) {
-        union_filters = erease_paradigm(union_filters, dialog.typeFilters2());
+        erease_paradigm(union_filters, dialog.typeFilters2());
     };
 
     set_filters_description();

@@ -14,14 +14,14 @@ public:
 	std::string _description;
 	IParadigm() { param = ""; }
 	IParadigm(std::string given) { param = given; };
-	virtual std::vector <std::string> find_pattern(std::vector <std::string> words)=0;
+	virtual void find_pattern(std::vector <std::string> &words)=0;
 };
 
 
 class ParadigmWords : public IParadigm {
 public:
-	std::vector <std::string> find_pattern(std::vector <std::string> words) { return words; } //bulshit
-	int number_of_words(std::vector <std::string> words) { return words.size(); };
+	void find_pattern(std::vector <std::string> &words) { return; }
+	int number_of_words(const std::vector <std::string> &words) { return words.size(); };
 };
 
 
@@ -30,8 +30,9 @@ public:
 	ParadigmLongerThan(std::string given) {
 		param = given;
 		_description = "Length bigger than: ";};
-	std::vector <std::string> find_pattern(std::vector <std::string> words);
+	void find_pattern(std::vector <std::string> &words);
 };
+
 
 class ParadigmShorterThan : public IParadigm {
 public:
@@ -39,7 +40,7 @@ public:
 		param = given;
 		_description = "Length smaller than: ";
 	};
-	std::vector <std::string> find_pattern(std::vector <std::string> words);
+	void find_pattern(std::vector <std::string> &words);
 };
 
 
@@ -49,7 +50,7 @@ public:
 		param = given;
 		_description = _description = "Length equal: ";
 	};
-	std::vector <std::string> find_pattern(std::vector <std::string> words);
+	void find_pattern(std::vector <std::string> &words);
 };
 
 
@@ -59,7 +60,7 @@ public:
 		param = given;
 		_description = "Start with sequence: ";
 	};
-	std::vector <std::string> find_pattern(std::vector <std::string> words);
+	void find_pattern(std::vector <std::string> &words);
 };
 
 
@@ -69,7 +70,7 @@ public:
 		param = given;
 		_description = "End with sequence: ";
 	};
-	std::vector <std::string> find_pattern(std::vector <std::string> words);
+	void find_pattern(std::vector <std::string> &words);
 };
 
 
@@ -79,7 +80,7 @@ public:
 		param = given;
 		_description = "Contain sequence: ";
 	};
-	std::vector <std::string> find_pattern(std::vector <std::string> words);
+	void find_pattern(std::vector <std::string> &words);
 };
 
 
@@ -89,12 +90,11 @@ public:
 		param = given;
 		_description = "Custom word regex: ";
 	}
-	std::vector <std::string> find_pattern(std::vector <std::string> words);
-	
+	void find_pattern(std::vector <std::string> &words);
 };
 
-std::vector <std::shared_ptr<IParadigm>> erease_paradigm(std::vector <std::shared_ptr<IParadigm>> paradigms, int index);
-std::vector <std::string> remove_from_vector(std::vector <std::string> words1, std::vector <std::string> words2);
-std::vector <std::string> describe_filters(std::vector <std::shared_ptr<IParadigm>> paradigms);
-std::vector <std::string> get_intersection(std::vector <std::string> words, std::vector <std::shared_ptr<IParadigm>> paradigms);
-std::vector <std::string> get_union(std::vector <std::string> words, std::vector <std::shared_ptr<IParadigm>> paradigms);
+void erease_paradigm(std::vector <std::shared_ptr<IParadigm>>& paradigms, int index);
+void remove_from_vector(std::vector <std::string> &words1, const std::vector <std::string> &words2);
+std::vector <std::string> get_intersection(std::vector <std::string> words, const std::vector <std::shared_ptr<IParadigm>> &paradigms);
+std::vector <std::string> get_union(std::vector <std::string> &words, const std::vector <std::shared_ptr<IParadigm>> &paradigms);
+std::vector <std::string> describe_filters(const std::vector <std::shared_ptr<IParadigm>>& paradigms);
