@@ -14,7 +14,7 @@
 //return vector of words having as many chars as given int
 void ParadigmLongerThan::find_pattern(std::vector <std::string> &words) {
     int i = 0;
-    int length = std::stoi(param);
+    int length = std::stoi(this->get_param());
     for (auto word : words) {
         if (word.size() <= length) {
             words.erase(words.begin() + i);
@@ -29,7 +29,7 @@ void ParadigmLongerThan::find_pattern(std::vector <std::string> &words) {
 //return vector of words being shorter than given int
 void ParadigmShorterThan::find_pattern(std::vector <std::string> &words) {
     int i = 0;
-    int length = std::stoi(param);
+    int length = std::stoi(this->get_param());
     for (auto word : words) {
         if (word.size() >= length) {
             words.erase(words.begin() + i);
@@ -44,7 +44,7 @@ void ParadigmShorterThan::find_pattern(std::vector <std::string> &words) {
 //return vector of words being equal length to given int
 void ParadigmEqualLength::find_pattern(std::vector <std::string> &words) {
     int i = 0;
-    int length = std::stoi(param);
+    int length = std::stoi(this->get_param());
     for (auto word : words) {
         if (word.size() != length) {
             words.erase(words.begin() + i);
@@ -57,7 +57,7 @@ void ParadigmEqualLength::find_pattern(std::vector <std::string> &words) {
 
 //return vector of words starting with given sequence
 void ParadigmStartsWithSequence::find_pattern(std::vector <std::string> &words) {
-    if (param.empty()) {
+    if (this->get_param().empty()) {
         if (words.empty()) {
             return;
         }
@@ -67,7 +67,7 @@ void ParadigmStartsWithSequence::find_pattern(std::vector <std::string> &words) 
 
     int n = 0;
     for (auto word : words) {
-        bool result = not word.starts_with(param);
+        bool result = not word.starts_with(this->get_param());
         if (result) {
             words.erase(words.begin() + n);
             find_pattern(words);
@@ -79,7 +79,7 @@ void ParadigmStartsWithSequence::find_pattern(std::vector <std::string> &words) 
 
 //return vector of words which ends on given sequence
 void ParadigmEndsOnSequence::find_pattern(std::vector <std::string> &words) {
-    if (param.empty()) {
+    if (this->get_param().empty()) {
         if (words.empty()) {
             return;
         }
@@ -89,7 +89,7 @@ void ParadigmEndsOnSequence::find_pattern(std::vector <std::string> &words) {
 
     int n = 0;
     for (auto word : words) {
-        bool result = not word.ends_with(param);
+        bool result = not word.ends_with(this->get_param());
         if (result) {
             words.erase(words.begin() + n);
             find_pattern(words);
@@ -101,7 +101,7 @@ void ParadigmEndsOnSequence::find_pattern(std::vector <std::string> &words) {
 
 //return vector of words which contains given sequence
 void ParadigmContainSequence::find_pattern(std::vector <std::string> &words){
-    if (param.empty() || words.empty()) {
+    if (this->get_param().empty() || words.empty()) {
         words.clear();
         return;
     }  //to correct for more spaces
@@ -112,7 +112,7 @@ void ParadigmContainSequence::find_pattern(std::vector <std::string> &words){
             words.clear();
             return;
         }
-        if (word.find(param) == std::string::npos) {
+        if (word.find(this->get_param()) == std::string::npos) {
             words.erase(words.begin() + n);
             find_pattern(words);
             break;
@@ -123,12 +123,12 @@ void ParadigmContainSequence::find_pattern(std::vector <std::string> &words){
 
 //return vector of words containing given regex
 void ParadigmCustom::find_pattern(std::vector <std::string> &words) {
-    if (param.empty() || words.empty()) {
+    if (this->get_param().empty() || words.empty()) {
         words.clear();
         return;
     }
 
-    std::regex word_regex(param);
+    std::regex word_regex(this->get_param());
     int n = 0;
     bool flag = true; //false if match regex, true if not
     for (auto word : words) {
@@ -225,8 +225,8 @@ std::vector <std::string> describe_filters(const std::vector <std::shared_ptr<IP
     std::string des = "";
 
     for (auto paradigm : paradigms) {
-        des += paradigm->_description;
-        des += paradigm->param;
+        des += paradigm->get_description();
+        des += paradigm->get_param();
         descriptions.push_back(des);
         des = "";
     }

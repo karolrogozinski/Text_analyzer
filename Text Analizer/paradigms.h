@@ -8,13 +8,19 @@
 #include <memory>
 
 class IParadigm{
-	
-public:
 	std::string param;
 	std::string _description;
-	IParadigm() { param = ""; }
-	IParadigm(std::string given) { param = given; };
+public:
+	const std::string& get_param() { return param; }
+	const std::string& get_description() { return _description; }
+
 	virtual void find_pattern(std::vector <std::string> &words)=0;
+protected:
+	IParadigm(std::string given, std::string des) {
+		param = given;
+		_description = des;
+	};
+	IParadigm() { param = ""; }
 };
 
 
@@ -27,69 +33,49 @@ public:
 
 class ParadigmLongerThan : public IParadigm {
 public:
-	ParadigmLongerThan(std::string given) {
-		param = given;
-		_description = "Length bigger than: ";};
+	ParadigmLongerThan(std::string given) :IParadigm(given, "Length bigger than: ") {};
 	void find_pattern(std::vector <std::string> &words);
 };
 
 
 class ParadigmShorterThan : public IParadigm {
 public:
-	ParadigmShorterThan(std::string given) {
-		param = given;
-		_description = "Length smaller than: ";
-	};
+	ParadigmShorterThan(std::string given) :IParadigm(given, "Length smaller than: ") {};
 	void find_pattern(std::vector <std::string> &words);
 };
 
 
 class ParadigmEqualLength : public IParadigm {
 public:
-	ParadigmEqualLength(std::string given) {
-		param = given;
-		_description = _description = "Length equal: ";
-	};
+	ParadigmEqualLength(std::string given) :IParadigm(given, "Length equal: ") {};
 	void find_pattern(std::vector <std::string> &words);
 };
 
 
 class ParadigmStartsWithSequence : public IParadigm {
 public:
-	ParadigmStartsWithSequence(std::string given) {
-		param = given;
-		_description = "Start with sequence: ";
-	};
+	ParadigmStartsWithSequence(std::string given) :IParadigm(given, "Start with sequence: ") {};
 	void find_pattern(std::vector <std::string> &words);
 };
 
 
 class ParadigmEndsOnSequence : public IParadigm {
 public:
-	ParadigmEndsOnSequence(std::string given) {
-		param = given;
-		_description = "End with sequence: ";
-	};
+	ParadigmEndsOnSequence(std::string given) :IParadigm(given, "End with sequence: ") {};
 	void find_pattern(std::vector <std::string> &words);
 };
 
 
 class ParadigmContainSequence : public IParadigm {
 public:
-	ParadigmContainSequence(std::string given) {
-		param = given;
-		_description = "Contain sequence: ";
-	};
+	ParadigmContainSequence(std::string given) :IParadigm(given, "Contain sequence: ") {};
 	void find_pattern(std::vector <std::string> &words);
 };
 
 
 class ParadigmCustom : public IParadigm {
 public:
-	ParadigmCustom(std::string given) {
-		param = given;
-		_description = "Custom word regex: ";
-	}
+	ParadigmCustom(std::string given) :IParadigm(given, "Custom word regex: ") {};
 	void find_pattern(std::vector <std::string> &words);
 };
 
