@@ -52,3 +52,14 @@ std::vector <std::string> split_string(const std::string& text) {
     return splitted;
 };
 
+
+std::string to_str(const std::vector <std::string>& text) {
+    std::string s_text = "";
+
+    for (auto a : text) {
+        s_text += a;
+        s_text += " ";
+    };
+
+    return s_text;
+};

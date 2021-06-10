@@ -1,6 +1,7 @@
 #include "QtWidgetsApplication2.h"
 #include "../Text Analizer/paradigms.h"
 #include "../Text Analizer/paradigm_functions.h"
+#include <memory>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <iostream>
@@ -27,9 +28,10 @@ void MainWindow::readFile() {
         ui.label_4->setText(file_name);
         std::string text = read_file(file_name.toStdString());
         ui.textBrowser->setText(QString::fromLocal8Bit(text.c_str()));
-        ParadigmWords pw(text);
-        current_text = text;
-        std::string new_label = "Text (" + std::to_string(pw.number_of_words());
+        ParadigmWords pw;
+        current_text = split_string(clean_string(text));
+        int amount = pw.number_of_words(current_text);
+        std::string new_label = "Text (" + std::to_string(amount);
         new_label += " words):";
         ui.label_2->setText(QString::fromLocal8Bit(new_label.c_str()));
     }
@@ -42,62 +44,62 @@ void MainWindow::newFilters() {
     if (!dialog.result()) { return; }
     if (dialog.typeFilters() == 0) {
         if (dialog.checkBox1()) {
-            std::pair <char, std::string> filter = { 3, std::to_string(dialog.valueFilter1()) };
-            filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmEqualLength(std::to_string(dialog.valueFilter1())));
+            filters.push_back(p);
         };
         if (dialog.checkBox2()) {
-            std::pair <char, std::string> filter = { 1, std::to_string(dialog.valueFilter2()) };
-            filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmLongerThan(std::to_string(dialog.valueFilter2())));
+            filters.push_back(p);
         };
         if (dialog.checkBox3()) {
-            std::pair <char, std::string> filter = { 2, std::to_string(dialog.valueFilter3()) };
-            filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmShorterThan(std::to_string(dialog.valueFilter3())));
+            filters.push_back(p);
         };
         if (dialog.checkBox4()) {
-            std::pair <char, std::string> filter = { 4, dialog.valueFilter4() };
-            filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence(dialog.valueFilter4()));
+            filters.push_back(p);
         };
         if (dialog.checkBox5()) {
-            std::pair <char, std::string> filter = { 5, dialog.valueFilter5() };
-            filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmEndsOnSequence(dialog.valueFilter5()));
+            filters.push_back(p);
         };
         if (dialog.checkBox6()) {
-            std::pair <char, std::string> filter = { 6, dialog.valueFilter6() };
-            filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmContainSequence(dialog.valueFilter6()));
+            filters.push_back(p);
         };
         if (dialog.checkBox7()) {
-            std::pair <char, std::string> filter = { 7, dialog.valueFilter7() };
-            filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmCustom(dialog.valueFilter7()));
+            filters.push_back(p);
         };
     };
     if (dialog.typeFilters() == 1) {
         if (dialog.checkBox1()) {
-            std::pair <char, std::string> filter = { 3, std::to_string(dialog.valueFilter1()) };
-            union_filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmEqualLength(std::to_string(dialog.valueFilter1())));
+            union_filters.push_back(p);
         };
         if (dialog.checkBox2()) {
-            std::pair <char, std::string> filter = { 1, std::to_string(dialog.valueFilter2()) };
-            union_filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmLongerThan(std::to_string(dialog.valueFilter2())));
+            union_filters.push_back(p);
         };
         if (dialog.checkBox3()) {
-            std::pair <char, std::string> filter = { 2, std::to_string(dialog.valueFilter3()) };
-            union_filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmShorterThan(std::to_string(dialog.valueFilter3())));
+            union_filters.push_back(p);
         };
         if (dialog.checkBox4()) {
-            std::pair <char, std::string> filter = { 4, dialog.valueFilter4() };
-            union_filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmStartsWithSequence(dialog.valueFilter4()));
+            union_filters.push_back(p);
         };
         if (dialog.checkBox5()) {
-            std::pair <char, std::string> filter = { 5, dialog.valueFilter5() };
-            union_filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmEndsOnSequence(dialog.valueFilter5()));
+            union_filters.push_back(p);
         };
         if (dialog.checkBox6()) {
-            std::pair <char, std::string> filter = { 6, dialog.valueFilter6() };
-            union_filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmContainSequence(dialog.valueFilter6()));
+            union_filters.push_back(p);
         };
         if (dialog.checkBox7()) {
-            std::pair <char, std::string> filter = { 7, dialog.valueFilter7() };
-            union_filters.push_back(filter);
+            std::shared_ptr<IParadigm> p(new ParadigmCustom(dialog.valueFilter7()));
+            union_filters.push_back(p);
         };
     };
 
@@ -114,12 +116,10 @@ void MainWindow::removeFilters() {
         union_filters.clear();
     };
     if (dialog.checkBox3()) {
-        int number = filters[dialog.typeFilters()].first;
-        filters = erease_paradigm(filters, number);
+        filters = erease_paradigm(filters, dialog.typeFilters());
     };
     if (dialog.checkBox2()) {
-        int number = union_filters[dialog.typeFilters2()].first;
-        union_filters = erease_paradigm(union_filters, number);
+        union_filters = erease_paradigm(union_filters, dialog.typeFilters2());
     };
 
     set_filters_description();
@@ -127,35 +127,35 @@ void MainWindow::removeFilters() {
 
 
 void MainWindow::runAnalyze() {
-    if (current_text == "") {
+    if (current_text.empty()) {
         QMessageBox msgBox;
-        msgBox.setText("No text choosen.");
+        msgBox.setText("No text chosen.");
         msgBox.setWindowTitle("Error");
         msgBox.exec();
         return;
     };
     if (filters.empty() && union_filters.empty()) {
         QMessageBox msgBox;
-        msgBox.setText("No filters choosen.");
+        msgBox.setText("No filters chosen.");
         msgBox.setWindowTitle("Error");
         msgBox.exec();
         return;
     }
 
-    std::string text = "";
+    std::vector <std::string> text;
     if (!filters.empty()) {
         text = get_intersection(current_text, filters);
     };
     if (!union_filters.empty()) {
-        if (text != "") {
+        if (!text.empty()) {
             text = get_union(text, union_filters);
         }
         else { text = get_union(current_text, union_filters); }
     };
-
-    ui.textBrowser->setText(QString::fromLocal8Bit(text.c_str()));
-    ParadigmWords pw(text);
-    std::string new_label = "Filtered: (" + std::to_string(pw.number_of_words());
+    std::string s_text = to_str(text);
+    ui.textBrowser->setText(QString::fromLocal8Bit(s_text.c_str()));
+    ParadigmWords pw;
+    std::string new_label = "Filtered: (" + std::to_string(pw.number_of_words(text));
     new_label += " words):";
     ui.label_2->setText(QString::fromLocal8Bit(new_label.c_str()));
 };

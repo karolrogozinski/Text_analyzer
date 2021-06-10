@@ -1,13 +1,13 @@
 #include "remove_filters.h"
 #include <vector>
 #include <qmessagebox.h>
-#include "../Text Analizer/analyzer.h"
+#include "../Text Analizer/paradigms.h"
 
 
-DialogRemove::DialogRemove(std::vector <std::pair<char, std::string>> filters_,
-	std::vector <std::pair<char, std::string>> union_filters_,
-	QWidget* parent) :
-	QDialog(parent) {
+DialogRemove::DialogRemove(std::vector <std::shared_ptr<IParadigm>> filters_,
+						   std::vector <std::shared_ptr<IParadigm>> union_filters_,
+						   QWidget* parent) :
+						   QDialog(parent) {
 
 	ui.setupUi(this);
 	filters = filters_;

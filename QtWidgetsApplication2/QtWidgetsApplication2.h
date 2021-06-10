@@ -4,6 +4,8 @@
 #include <tuple>
 #include <QtWidgets/QMainWindow>
 #include "ui_QtWidgetsApplication2.h"
+#include <memory>
+#include "../Text Analizer/paradigms.h"
 
 
 class MainWindow : public QMainWindow
@@ -22,7 +24,7 @@ public slots:
 
 private:
     Ui::MainWindow ui;
-    std::string current_text;
-    std::vector <std::pair<char, std::string>> filters;
-    std::vector <std::pair<char, std::string>> union_filters;
+    std::vector <std::shared_ptr<IParadigm>> filters;
+    std::vector <std::shared_ptr<IParadigm>> union_filters;
+    std::vector <std::string> current_text;
 };

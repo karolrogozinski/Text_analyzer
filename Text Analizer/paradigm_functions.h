@@ -14,6 +14,4 @@ std::string clean_string(const std::string& text_);
 
 std::vector <std::string> split_string(const std::string& text);
 
-
-
-
+std::string to_str(const std::vector <std::string>& text);
